@@ -6,8 +6,6 @@ public class Account {
 
     private AccountDatastructure accountDatastructure;
 
-    // ahmad mac test
-
     private Account(AccountDatastructure accountDatastructure) {
 	this.accountDatastructure = AccountDatastructure.copyOf(accountDatastructure);
     }
