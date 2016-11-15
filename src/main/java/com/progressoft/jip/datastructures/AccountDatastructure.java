@@ -10,6 +10,7 @@ public class AccountDatastructure {
     private String iban;
     private Balance balance;
     private Currency currency;
+// teststttttttt
 
     public AccountDatastructure(long id, String type, String iban, Balance balance, Currency currency) {
 	this.id = id;
