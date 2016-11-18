@@ -46,7 +46,7 @@ public class CurrencySQLGatewayTest {
 		dataSource.setPassword("root");
 		currencyGatewaty = new CurrencyGatewaySQL(dataSource);
 	}
-
+ 
 	@Test
 	public void _01_CurrencyGateway_loadCurrencies_ResultSetHaveElements() {
 		Iterable<Currency> currencies = currencyGatewaty.loadCurrencies();
