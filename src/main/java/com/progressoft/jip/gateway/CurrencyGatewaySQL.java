@@ -27,6 +27,7 @@ public class CurrencyGatewaySQL implements CurrencyGateway {
 		
 	}
 
+	
 	@Override
 	public Iterable<Currency> loadCurrencies() {
 		

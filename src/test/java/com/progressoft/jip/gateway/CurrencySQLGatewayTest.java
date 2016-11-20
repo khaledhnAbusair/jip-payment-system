@@ -75,6 +75,7 @@ public class CurrencySQLGatewayTest {
 		currencyGatewaty.getCurrencyByCode("SOS");
 	}
 
+	
 	@Test
 	public void _06_CurrencyGateway_updateCurrencybyCode_CurrencyUpdated() {
 		double newRate = 4.3;
