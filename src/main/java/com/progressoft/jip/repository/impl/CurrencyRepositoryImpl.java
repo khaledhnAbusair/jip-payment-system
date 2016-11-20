@@ -1,4 +1,4 @@
-package com.progressoft.jip.repository;
+package com.progressoft.jip.repository.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,12 +7,12 @@ import com.progressoft.jip.datastructures.Currency;
 import com.progressoft.jip.gateway.CurrencyGateway;
 import com.progressoft.jip.model.CurrencyModel;
 
-public class CurrencyReopsitoryImpl {
+public class CurrencyRepositoryImpl {
 
 	private CurrencyGateway currencyGateway;
 	private List<CurrencyModel> currencies = new ArrayList<>();
 
-	public CurrencyReopsitoryImpl(CurrencyGateway currencyGateway) {
+	public CurrencyRepositoryImpl(CurrencyGateway currencyGateway) {
 		this.currencyGateway = currencyGateway;
 	}
 
