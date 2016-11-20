@@ -1,4 +1,4 @@
-package com.progressoft.jip.gateway;
+package com.progressoft.jip.gateway.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,11 +7,11 @@ import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import javax.sql.DataSource;
 
 import com.progressoft.jip.datastructures.Currency;
+import com.progressoft.jip.gateway.CurrencyGateway;
 
 public class CurrencyGatewaySQL implements CurrencyGateway {
 	private static final String CRNCY_CODE_COLOMN = "CRNCY_CODE";

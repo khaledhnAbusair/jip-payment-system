@@ -1,4 +1,4 @@
-package com.progressoft.jip.repository;
+package com.progressoft.jip.repository.impl;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -7,6 +7,7 @@ import com.progressoft.jip.datastructures.AccountDatastructure;
 import com.progressoft.jip.exception.NoneExistedIBANException;
 import com.progressoft.jip.gateway.AccountsGateway;
 import com.progressoft.jip.model.Account;
+import com.progressoft.jip.repository.AccountsRepository;
 
 public class AccountsRepositoryImpl implements AccountsRepository {
 
