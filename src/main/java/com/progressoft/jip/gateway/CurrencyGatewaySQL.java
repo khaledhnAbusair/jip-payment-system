@@ -20,7 +20,6 @@ public class CurrencyGatewaySQL implements CurrencyGateway {
 	private static final String DB_NAME = "payment_system";
 	private static final String CRNCY_TABLE_NAME = DB_NAME + "." + "currencies";
 
-	//private List<Currency> currencies = new ArrayList<>();
 	private DataSource dataSource;
 
 	public CurrencyGatewaySQL(DataSource dataSource) {
