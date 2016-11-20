@@ -7,12 +7,9 @@ import java.util.ArrayList;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import com.progressoft.jip.datastructures.PaymentPurposeDataStructure;
 import com.progressoft.jip.gateway.PaymentPurposeGateway;
-import com.progressoft.jip.gateway.impl.MySQLPaymentPurposeGateway;
-import com.progressoft.jip.gateway.impl.MySQLPaymentPurposeGateway.NullPaymentPurposeCodeException;
 
 public class MySQLPaymentPurposeGatewayTest {
 
