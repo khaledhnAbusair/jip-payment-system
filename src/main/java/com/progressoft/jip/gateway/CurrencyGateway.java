@@ -8,11 +8,11 @@ public interface CurrencyGateway {
 
 	Currency getCurrencyByCode(String currencyCode);
 
-	void updateCurrencyRateByCode(String currencyCode ,double currencyRate);
+	int updateCurrencyRateByCode(String currencyCode ,double currencyRate);
 
-	void createCurrency(Currency currency);
+	int createCurrency(Currency currency);
 
-	void deleteCurrency(Currency currency);
+	int deleteCurrency(Currency currency);
 
 
 }
