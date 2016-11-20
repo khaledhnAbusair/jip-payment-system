@@ -70,13 +70,13 @@ public class CurrencySQLGatewayTest {
 	}
 
 	@Test
-	public void CurrencyGateway_GetInvalidCurrency_ThrowException() {
+	public void _05_CurrencyGateway_GetInvalidCurrency_ThrowException() {
 		expectedException.expect(EmptyResultSetException.class);
 		currencyGatewaty.getCurrencyByCode("SOS");
 	}
 
 	@Test
-	public void CurrencyGateway_updateCurrencybyCode_CurrencyUpdated() {
+	public void _06_CurrencyGateway_updateCurrencybyCode_CurrencyUpdated() {
 		double newRate = 4.3;
 		double maxDelta = 0;
 		Currency validCurrency = currencies.get(0);
@@ -86,7 +86,7 @@ public class CurrencySQLGatewayTest {
 	}
 
 	@Test
-	public void CurrencyGateway_CreateCurrency_CurrencyCreated() {
+	public void _07_CurrencyGateway_CreateCurrency_CurrencyCreated() {
 		currencyGatewaty.createCurrency(newCurrency);
 
 		Currency created = currencyGatewaty.getCurrencyByCode(newCurrency.getCurrencyCode());
@@ -100,7 +100,7 @@ public class CurrencySQLGatewayTest {
 	}
 
 	@Test
-	public void CurrencyGateway_deleteCurrencyTest_CurrencyDeleted() {
+	public void _08_CurrencyGateway_deleteCurrencyTest_CurrencyDeleted() {
 		currencyGatewaty.deleteCurrency(newCurrency);
 		expectedException.expect(EmptyResultSetException.class);
 		Currency deleted = currencyGatewaty.getCurrencyByCode(newCurrency.getCurrencyCode());

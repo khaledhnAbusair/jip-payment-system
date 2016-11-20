@@ -20,33 +20,34 @@ public class CurrencyGatewaySQL implements CurrencyGateway {
 	private static final String DB_NAME = "payment_system";
 	private static final String CRNCY_TABLE_NAME = DB_NAME + "." + "currencies";
 
-	private List<Currency> currencies = new ArrayList<>();
+	//private List<Currency> currencies = new ArrayList<>();
 	private DataSource dataSource;
 
 	public CurrencyGatewaySQL(DataSource dataSource) {
 		this.dataSource = dataSource;
-
+		
 	}
 
 	@Override
 	public Iterable<Currency> loadCurrencies() {
+		
 		try (Connection connection = dataSource.getConnection()) {
-			populateCurrenciesList(connection);
-			return this.currencies;
+			return populateCurrenciesList(connection);
 		} catch (SQLException e) {
 			throw new IllegalStateException(e);
 		}
 	}
 
-	private void populateCurrenciesList(Connection connection) {
+	private List<Currency> populateCurrenciesList(Connection connection) {
 		String sql = "select * from " + CRNCY_TABLE_NAME;
+		List<Currency> currencies = new ArrayList<>();
 		try (PreparedStatement statement = connection.prepareStatement(sql)) {
 			ResultSet rs = statement.executeQuery();
 			checkEmptyResultSet(rs);
-			while (rs.next()) {
-				Currency currency = buildCurrency(rs);
-				this.currencies.add(currency);
+			while (rs.next()) { 
+				currencies.add(buildCurrency(rs));
 			}
+			return currencies;
 		} catch (SQLException e) {
 			throw new IllegalArgumentException(e);
 		}
