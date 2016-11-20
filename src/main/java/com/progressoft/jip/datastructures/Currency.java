@@ -1,22 +1,13 @@
 package com.progressoft.jip.datastructures;
 
-
-
-import com.thoughtworks.xstream.annotations.XStreamAlias;
-
-@XStreamAlias("Currency")
 public class Currency {
 
 	private String currencyCode;
 	private double currencyRate;
 	private String currencyDescription;
-	//private java.util.Currency currency;
-	
-	
-	
-	
+
 	public String getCurrencyCode() {
-		
+
 		return currencyCode;
 	}
 

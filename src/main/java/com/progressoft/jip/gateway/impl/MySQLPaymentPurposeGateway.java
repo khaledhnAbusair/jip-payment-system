@@ -1,4 +1,4 @@
-package com.progressoft.jip.gateway;
+package com.progressoft.jip.gateway.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,6 +12,7 @@ import java.util.Objects;
 import javax.sql.DataSource;
 
 import com.progressoft.jip.datastructures.PaymentPurposeDataStructure;
+import com.progressoft.jip.gateway.PaymentPurposeGateway;
 
 public class MySQLPaymentPurposeGateway implements PaymentPurposeGateway {
 

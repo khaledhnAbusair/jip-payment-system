@@ -1,4 +1,4 @@
-package com.progressoft.jip.gateway;
+package com.progressoft.jip.gateway.impl;
 
 import static org.junit.Assert.assertEquals;
 
@@ -10,7 +10,9 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import com.progressoft.jip.datastructures.PaymentPurposeDataStructure;
-import com.progressoft.jip.gateway.MySQLPaymentPurposeGateway.NullPaymentPurposeCodeException;
+import com.progressoft.jip.gateway.PaymentPurposeGateway;
+import com.progressoft.jip.gateway.impl.MySQLPaymentPurposeGateway;
+import com.progressoft.jip.gateway.impl.MySQLPaymentPurposeGateway.NullPaymentPurposeCodeException;
 
 public class MySQLPaymentPurposeGatewayTest {
 
