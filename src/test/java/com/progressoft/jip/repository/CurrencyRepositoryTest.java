@@ -8,7 +8,7 @@ import org.apache.commons.dbcp.BasicDataSource;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.progressoft.jip.gateway.impl.CurrencyGatewaySQL;
+import com.progressoft.jip.gateway.impl.SQLCurrencyGateway;
 import com.progressoft.jip.model.CurrencyModel;
 import com.progressoft.jip.repository.impl.CurrencyRepositoryImpl;
 
@@ -27,7 +27,7 @@ public class CurrencyRepositoryTest {
 	@Before
 	public void setUp() {
 		configureConnection();
-		currencyRepository = new CurrencyRepositoryImpl(new CurrencyGatewaySQL(dataSource));
+		currencyRepository = new CurrencyRepositoryImpl(new SQLCurrencyGateway(dataSource));
 	}
 
 	@Test

@@ -4,6 +4,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.text.DecimalFormat;
+import java.util.Random;
+
 import org.apache.commons.dbcp.BasicDataSource;
 import org.junit.Before;
 import org.junit.Rule;
@@ -12,16 +15,17 @@ import org.junit.rules.ExpectedException;
 
 import com.progressoft.jip.datastructures.Currency;
 import com.progressoft.jip.gateway.CurrencyGateway;
-import com.progressoft.jip.gateway.impl.CurrencyGatewaySQL.DuplicateCurrencyCodeException;
-import com.progressoft.jip.gateway.impl.CurrencyGatewaySQL.EmptyResultSetException;
-import com.progressoft.jip.gateway.impl.CurrencyGatewaySQL.ShortCurrencyCodeException;
+
+import com.progressoft.jip.gateway.impl.SQLCurrencyGateway.EmptyResultSetException;
+import com.progressoft.jip.gateway.impl.SQLCurrencyGateway.ShortCurrencyCodeException;
+import com.progressoft.jip.gateway.impl.QueryHandler.DuplicateCurrencyCodeException;
 
 public class CurrencySQLGatewayTest {
 
 	private static final String INVALID_CURRENCY_CODE = "SOS";
 	private static final String VALID_CURRENCY_CODE = "JOD";
 	private static final String SHORT_CURRENCY_CODE = "J";
-	private static final double RATE_FOR_UPDATE = 4.3;
+	private static final double RATE_FOR_UPDATE = Double.valueOf(new DecimalFormat("##.####").format( new Random().nextDouble() * .01));
 	private static final double MAX_DELTA = 0;
 	private static final String DATABASE_USER = "root";
 	private static final String DATABASE_PASSWORD = "root";
@@ -36,8 +40,9 @@ public class CurrencySQLGatewayTest {
 
 	@Before
 	public void setUp() {
+		
 		configureConnection();
-		currencyGatewaty = new CurrencyGatewaySQL(dataSource);
+		currencyGatewaty = new SQLCurrencyGateway(dataSource);
 	}
 
 	@Test
