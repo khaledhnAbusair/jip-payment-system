@@ -48,6 +48,7 @@ public class MySQLPaymentPurposeGateway implements PaymentPurposeGateway {
 
     @Override
     public Collection<PaymentPurposeDataStructure> loadPaymentPurposes() {
+    		
 	return Executers.LOAD_PAYMENT_PURPOSES
 		.execute(stringValuesPreparedStatement("select * from PAYMENT_SYSTEM.PAYMENT_PURPOSE"));
     }
