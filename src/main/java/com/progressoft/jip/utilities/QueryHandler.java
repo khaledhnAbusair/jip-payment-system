@@ -1,4 +1,4 @@
-package com.progressoft.jip.gateway.impl;
+package com.progressoft.jip.utilities;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -31,7 +31,7 @@ public class QueryHandler {
 		return handler.prepareStatement(sql);
 	}
 
-	static class DuplicateCurrencyCodeException extends RuntimeException {
+	public static class DuplicateCurrencyCodeException extends RuntimeException {
 
 		private static final long serialVersionUID = 1L;
 	}

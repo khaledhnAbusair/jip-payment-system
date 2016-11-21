@@ -15,10 +15,9 @@ import org.junit.rules.ExpectedException;
 
 import com.progressoft.jip.datastructures.Currency;
 import com.progressoft.jip.gateway.CurrencyGateway;
-
 import com.progressoft.jip.gateway.impl.SQLCurrencyGateway.EmptyResultSetException;
 import com.progressoft.jip.gateway.impl.SQLCurrencyGateway.ShortCurrencyCodeException;
-import com.progressoft.jip.gateway.impl.QueryHandler.DuplicateCurrencyCodeException;
+import com.progressoft.jip.utilities.QueryHandler.DuplicateCurrencyCodeException;
 
 public class CurrencySQLGatewayTest {
 

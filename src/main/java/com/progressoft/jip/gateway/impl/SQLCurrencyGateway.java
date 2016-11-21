@@ -5,7 +5,7 @@ import static com.progressoft.jip.gateway.impl.ConstantSQLQueries.INSERT_CRNCY;
 import static com.progressoft.jip.gateway.impl.ConstantSQLQueries.SELECT_ALL_CRNCYS;
 import static com.progressoft.jip.gateway.impl.ConstantSQLQueries.SELECT_CRNCY_BY_CODE;
 import static com.progressoft.jip.gateway.impl.ConstantSQLQueries.UPDATE_CRNCY_RATE_BY_CODE;
-import static com.progressoft.jip.gateway.impl.QueryHandler.executeQuery;
+import static com.progressoft.jip.utilities.QueryHandler.executeQuery;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
