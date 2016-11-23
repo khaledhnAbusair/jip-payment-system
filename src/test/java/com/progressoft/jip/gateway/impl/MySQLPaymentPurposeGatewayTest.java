@@ -19,6 +19,7 @@ import com.progressoft.jip.exception.NullPaymentPurposeCodeException;
 import com.progressoft.jip.exception.NullPaymentPurposeNameException;
 import com.progressoft.jip.exception.PaymentPurposeNotFoundException;
 import com.progressoft.jip.gateway.PaymentPurposeGateway;
+import com.progressoft.jip.utilities.PaymentPurposeBehaviorsFactoryImpl;
 
 public class MySQLPaymentPurposeGatewayTest {
 
@@ -32,12 +33,14 @@ public class MySQLPaymentPurposeGatewayTest {
 	dataSource.setUsername("root");
 	dataSource.setPassword("root");
 	dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-	mySQLPaymentPurposeGateway = new MySQLPaymentPurposeGateway(dataSource);
+	mySQLPaymentPurposeGateway = new MySQLPaymentPurposeGateway(dataSource,
+		new PaymentPurposeBehaviorsFactoryImpl());
     }
 
     @Test(expected = NullDataSourceException.class)
     public void createPaymentPurposeGateway_PassingNullDataSource_ShouldThrowNullDataSource() {
-	mySQLPaymentPurposeGateway = new MySQLPaymentPurposeGateway(null);
+	mySQLPaymentPurposeGateway = new MySQLPaymentPurposeGateway(null, 
+		new PaymentPurposeBehaviorsFactoryImpl());
     }
 
     @Test(expected = EmptyPaymentPurposeCodeException.class)

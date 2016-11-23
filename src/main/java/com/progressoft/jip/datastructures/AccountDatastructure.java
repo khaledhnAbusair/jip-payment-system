@@ -9,9 +9,9 @@ public class AccountDatastructure {
     private String type;
     private String iban;
     private Balance balance;
-    private Currency currency;
+    private CurrencyDataStructure currency;
 
-    public AccountDatastructure(long id, String type, String iban, Balance balance, Currency currency) {
+    public AccountDatastructure(long id, String type, String iban, Balance balance, CurrencyDataStructure currency) {
 	this.id = id;
 	this.type = type;
 	this.iban = iban;
@@ -51,11 +51,11 @@ public class AccountDatastructure {
 	this.balance = balance;
     }
 
-    public Currency getCurrency() {
+    public CurrencyDataStructure getCurrency() {
 	return currency;
     }
 
-    public void setCurrency(Currency currency) {
+    public void setCurrency(CurrencyDataStructure currency) {
 	this.currency = currency;
     }
     

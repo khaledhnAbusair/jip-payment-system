@@ -13,7 +13,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import com.progressoft.jip.datastructures.Currency;
+import com.progressoft.jip.datastructures.CurrencyDataStructure;
 import com.progressoft.jip.gateway.CurrencyGateway;
 import com.progressoft.jip.gateway.impl.SQLCurrencyGateway.EmptyResultSetException;
 import com.progressoft.jip.gateway.impl.SQLCurrencyGateway.ShortCurrencyCodeException;
@@ -46,13 +46,13 @@ public class CurrencySQLGatewayTest {
 
 	@Test
 	public void givenCurrencyGateway_WhenLoadCurrencies_ThenResultSetHasElements() {
-		Iterable<Currency> currencies = currencyGatewaty.loadCurrencies();
+		Iterable<CurrencyDataStructure> currencies = currencyGatewaty.loadCurrencies();
 		assertTrue(currencies.iterator().hasNext());
 	}
 
 	@Test
 	public void givenCurrencyGateway_WhenGetValidCurrency_ThenCurrencyNotNull() {
-		Currency currency = currencyGatewaty.getCurrencyByCode(VALID_CURRENCY_CODE);
+		CurrencyDataStructure currency = currencyGatewaty.getCurrencyByCode(VALID_CURRENCY_CODE);
 		assertNotNull(currency);
 	}
 
@@ -79,14 +79,14 @@ public class CurrencySQLGatewayTest {
 
 	@Test
 	public void givenCurrencyGateway_WhenUpdateCurrencybyCode_AndGetCurrencyByCode__ThenCurrencyIsUpdated() {
-		Currency originalCurrency = currencyGatewaty.getCurrencyByCode(VALID_CURRENCY_CODE);
+		CurrencyDataStructure originalCurrency = currencyGatewaty.getCurrencyByCode(VALID_CURRENCY_CODE);
 		currencyGatewaty.updateCurrencyRateByCode(VALID_CURRENCY_CODE, RATE_FOR_UPDATE);
-		Currency updatedCurrency = currencyGatewaty.getCurrencyByCode(VALID_CURRENCY_CODE);
+		CurrencyDataStructure updatedCurrency = currencyGatewaty.getCurrencyByCode(VALID_CURRENCY_CODE);
 		assertEquals(RATE_FOR_UPDATE, updatedCurrency.getCurrencyRate(), MAX_DELTA);
 		returnCurrencyToOriginalRate(originalCurrency);
 	}
 
-	private void returnCurrencyToOriginalRate(Currency originalCurrency) {
+	private void returnCurrencyToOriginalRate(CurrencyDataStructure originalCurrency) {
 		currencyGatewaty.updateCurrencyRateByCode(originalCurrency.getCurrencyCode(),
 				originalCurrency.getCurrencyRate());
 	}
@@ -99,7 +99,7 @@ public class CurrencySQLGatewayTest {
 
 	@Test
 	public void givenCurrencyGateway_WhenCreateNewCurrency_AndDeleteSameCurrency_ThenCurrencyShouldBeCreated_AndSameCurrencyShouldBeDeleted() {
-		Currency newCurrency = buildNewCurrency();
+		CurrencyDataStructure newCurrency = buildNewCurrency();
 		isSingleRowAffected(currencyGatewaty.createCurrency(newCurrency));
 		isSingleRowAffected(currencyGatewaty.deleteCurrency(newCurrency));
 
@@ -112,8 +112,8 @@ public class CurrencySQLGatewayTest {
 		dataSource.setPassword(DATABASE_PASSWORD);
 	}
 
-	private Currency buildNewCurrency() {
-		Currency newCurrency = new Currency();
+	private CurrencyDataStructure buildNewCurrency() {
+		CurrencyDataStructure newCurrency = new CurrencyDataStructure();
 		newCurrency.setCurrencyCode("SAR");
 		newCurrency.setCurrencyRate(0.54);
 		newCurrency.setCurrencyDescription("Saudi Arabian Ryal");

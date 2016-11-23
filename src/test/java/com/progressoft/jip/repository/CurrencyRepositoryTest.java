@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.progressoft.jip.gateway.impl.SQLCurrencyGateway;
-import com.progressoft.jip.model.CurrencyModel;
+import com.progressoft.jip.model.Currency;
 import com.progressoft.jip.repository.impl.CurrencyRepositoryImpl;
 
 public class CurrencyRepositoryTest {
@@ -32,21 +32,21 @@ public class CurrencyRepositoryTest {
 
 	@Test
 	public void givenCurrencyRepository_WhenloadCurrencies_ThenCurrenciesLoaded() {
-		Iterable<CurrencyModel> currencies = currencyRepository.loadCurrencies();
+		Iterable<Currency> currencies = currencyRepository.loadCurrencies();
 		assertTrue(currencies.iterator().hasNext());
 	}
 
 	@Test
 	public void givenCurrencycODE_WhehnloadCurrencyByCode_ThenCurrencyLoaded() {
-		CurrencyModel currency = currencyRepository.loadCurrencyByCode("JOD");
+		Currency currency = currencyRepository.loadCurrencyByCode("JOD");
 		assertNotNull(currency);
 	}
 
 	@Test
 	public void givenCuurencyRepository_whenUpdateCurrencyRateByCode_rateUpdated() {
-		CurrencyModel originalUpdateCurrency = currencyRepository.loadCurrencyByCode(VALID_CURRENCY_CODE);
+		Currency originalUpdateCurrency = currencyRepository.loadCurrencyByCode(VALID_CURRENCY_CODE);
 		currencyRepository.updatedCurrencyRateByCode(VALID_CURRENCY_CODE, NEW_CURRENCY_RATE);
-		CurrencyModel updatedCurrency = currencyRepository.loadCurrencyByCode(VALID_CURRENCY_CODE);
+		Currency updatedCurrency = currencyRepository.loadCurrencyByCode(VALID_CURRENCY_CODE);
 		assertEquals(updatedCurrency.getCurrencyRate(), NEW_CURRENCY_RATE, 0);
 		currencyRepository.updatedCurrencyRateByCode(originalUpdateCurrency.getCurrencyCode(), originalUpdateCurrency.getCurrencyRate());
 	}

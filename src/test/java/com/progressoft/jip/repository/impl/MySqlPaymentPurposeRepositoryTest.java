@@ -11,6 +11,7 @@ import com.progressoft.jip.exception.NoneExistingPaymentPurposeException;
 import com.progressoft.jip.exception.NullPaymentPurposeCodeException;
 import com.progressoft.jip.exception.NullPaymentPurposeNameException;
 import com.progressoft.jip.gateway.impl.MySQLPaymentPurposeGateway;
+import com.progressoft.jip.utilities.PaymentPurposeBehaviorsFactoryImpl;
 
 public class MySqlPaymentPurposeRepositoryTest {
 
@@ -23,7 +24,8 @@ public class MySqlPaymentPurposeRepositoryTest {
 	dataSource.setPassword("root");
 	dataSource.setUrl("jdbc:mysql://localhost:3306/PAYMENT_SYSTEM");
 	dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-	paymentPurposeRepository = new MySqlPaymentPurposeRepositoryMock(new MySQLPaymentPurposeGateway(dataSource));
+	paymentPurposeRepository = new MySqlPaymentPurposeRepositoryMock(new MySQLPaymentPurposeGateway(dataSource,
+		new PaymentPurposeBehaviorsFactoryImpl()));
     }
 
     @Test

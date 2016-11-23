@@ -14,7 +14,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import com.progressoft.jip.datastructures.Currency;
+import com.progressoft.jip.datastructures.CurrencyDataStructure;
 import com.progressoft.jip.gateway.CurrencyGateway;
 
 public class SQLCurrencyGateway implements CurrencyGateway {
@@ -31,9 +31,9 @@ public class SQLCurrencyGateway implements CurrencyGateway {
 	}
 
 	@Override
-	public Iterable<Currency> loadCurrencies() {
+	public Iterable<CurrencyDataStructure> loadCurrencies() {
 		return executeQuery(dataSource, SELECT_ALL_CRNCYS, statement -> {
-			List<Currency> currencies = new ArrayList<>();
+			List<CurrencyDataStructure> currencies = new ArrayList<>();
 			ResultSet rs = statement.executeQuery();
 			checkEmptyResultSet(rs);
 			while (rs.next()) {
@@ -43,7 +43,7 @@ public class SQLCurrencyGateway implements CurrencyGateway {
 		});
 	}
 
-	public Currency getCurrencyByCode(String currencyCode) {
+	public CurrencyDataStructure getCurrencyByCode(String currencyCode) {
 		checkCurrnecyCodeLength(currencyCode);
 		return executeQuery(dataSource, SELECT_CRNCY_BY_CODE, statement -> {
 			statement.setString(1, currencyCode);
@@ -66,7 +66,7 @@ public class SQLCurrencyGateway implements CurrencyGateway {
 	}
 
 	@Override
-	public int createCurrency(Currency currency) {
+	public int createCurrency(CurrencyDataStructure currency) {
 		return executeQuery(dataSource, INSERT_CRNCY, statement -> {
 			statement.setString(1, currency.getCurrencyCode());
 			statement.setDouble(2, currency.getCurrencyRate());
@@ -76,7 +76,7 @@ public class SQLCurrencyGateway implements CurrencyGateway {
 	}
 
 	@Override
-	public int deleteCurrency(Currency currency) {
+	public int deleteCurrency(CurrencyDataStructure currency) {
 		return executeQuery(dataSource, DELETE_CRNCY, statement -> {
 			statement.setString(1, currency.getCurrencyCode());
 			statement.setString(2, currency.getCurrencyDescription());
@@ -84,12 +84,12 @@ public class SQLCurrencyGateway implements CurrencyGateway {
 		});
 	}
 
-	private Currency buildCurrency(ResultSet rs) {
+	private CurrencyDataStructure buildCurrency(ResultSet rs) {
 		try {
 			String currCode = rs.getString(CRNCY_CODE_COLOMN);
 			String currDescription = rs.getString(CRNCY_DESC_COLOMN);
 			double currRate = rs.getDouble(CRNCY_RATE_COLOMN);
-			Currency currency = new Currency();
+			CurrencyDataStructure currency = new CurrencyDataStructure();
 			currency.setCurrencyCode(currCode);
 			currency.setCurrencyDescription(currDescription);
 			currency.setCurrencyRate(currRate);

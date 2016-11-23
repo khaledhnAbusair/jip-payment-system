@@ -1,12 +1,12 @@
 package com.progressoft.jip.model;
 
-import com.progressoft.jip.datastructures.Currency;
+import com.progressoft.jip.datastructures.CurrencyDataStructure;
 
-public class CurrencyModel {
+public class Currency {
 
-	private Currency currency;
+	private CurrencyDataStructure currency;
 
-	public CurrencyModel(Currency currency) {
+	public Currency(CurrencyDataStructure currency) {
 		this.currency = currency;
 	}
 

@@ -6,9 +6,9 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 public class Balance {
 
     private double amount;
-    private Currency currency;
+    private CurrencyDataStructure currency;
 
-    public Balance(double amount, Currency currency) {
+    public Balance(double amount, CurrencyDataStructure currency) {
 	this.amount = amount;
 	this.currency = currency;
     }
@@ -21,11 +21,11 @@ public class Balance {
 	this.amount = amount;
     }
 
-    public Currency getCurrency() {
+    public CurrencyDataStructure getCurrency() {
 	return currency;
     }
 
-    public void setCurrency(Currency currency) {
+    public void setCurrency(CurrencyDataStructure currency) {
 	this.currency = currency;
     }
 
