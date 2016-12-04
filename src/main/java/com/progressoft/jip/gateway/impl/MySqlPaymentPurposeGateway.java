@@ -9,7 +9,7 @@ import com.progressoft.jip.gateway.PaymentPurposeGateway;
 import com.progressoft.jip.utilities.Behavior;
 import com.progressoft.jip.utilities.PaymentPurposeBehaviorsFactory;
 
-public class MySQLPaymentPurposeGateway extends AbstractGateway implements PaymentPurposeGateway {
+public class MySqlPaymentPurposeGateway extends AbstractGateway implements PaymentPurposeGateway {
 
     private final Behavior<PaymentPurposeDataStructure> loadPaymentPurposeByCode;
     private final Behavior<Void> insertPaymentPurpose;
@@ -17,7 +17,7 @@ public class MySQLPaymentPurposeGateway extends AbstractGateway implements Payme
     private final Behavior<Void> deletePaymentPurposeByCode;
     private final Behavior<Void> updatePaymentPurposeName;
 
-    public MySQLPaymentPurposeGateway(DataSource dataSource, PaymentPurposeBehaviorsFactory factory) {
+    public MySqlPaymentPurposeGateway(DataSource dataSource, PaymentPurposeBehaviorsFactory factory) {
 	super(dataSource);
 	this.insertPaymentPurpose = factory.insertPaymentPurposeBehavior();
 	this.loadPaymentPurposeByCode = factory.loadPaymentPurposeByCodeBehavior();

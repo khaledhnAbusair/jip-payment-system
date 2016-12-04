@@ -2,10 +2,10 @@ package com.progressoft.jip.repository.impl;
 
 import com.progressoft.jip.gateway.PaymentPurposeGateway;
 
-public class MySqlPaymentPurposeRepositoryMock extends MySqlPaymentPurposeRepository{
+public class PaymentPurposeRepositoryMock extends PaymentPurposeRepositoryImpl{
 
 
-    public MySqlPaymentPurposeRepositoryMock(PaymentPurposeGateway paymentPurposeGateway) {
+    public PaymentPurposeRepositoryMock(PaymentPurposeGateway paymentPurposeGateway) {
 	super(paymentPurposeGateway);
     }
     

@@ -9,13 +9,6 @@ public class Currency {
 	public Currency(CurrencyDataStructure currency) {
 		this.currency = currency;
 	}
-
-	public double getCurrencyRate() {
-		return currency.getCurrencyRate();
-	}
-
-	public String getCurrencyCode() {
-		return currency.getCurrencyCode();
-	}
+	
 
 }
