@@ -21,6 +21,6 @@ public interface PaymentRequestDataStructureBuilder {
     public PaymentRequestDataStructureBuilder setPurposeCdoe(String purposeCdoe);
 
     public PaymentRequestDataStructureBuilder setPaymentDate(Date paymentDate);
-    
+
     public PaymentRequestDataStructure build();
 }
