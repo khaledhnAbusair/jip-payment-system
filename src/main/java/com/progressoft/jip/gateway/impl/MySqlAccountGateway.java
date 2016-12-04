@@ -74,7 +74,7 @@ public class MySqlAccountGateway implements AccountGateway {
 
 	@Override
 	public Collection<AccountDatastructure> loadAccounts() {
-		return QueryHandler.executeQuery(dataSource, GET_ACCOUNTS, statement -> {
+		return QueryHandler.executeQueryAndGet(dataSource, GET_ACCOUNTS, statement -> {
 			List<AccountDatastructure> accounts = new ArrayList<>();
 			ResultSet rs = statement.executeQuery();
 			checkEmptyResultSet(rs);

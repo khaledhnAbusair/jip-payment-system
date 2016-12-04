@@ -33,13 +33,13 @@ public class MySQLPaymentPurposeGatewayTest {
 	dataSource.setUsername("root");
 	dataSource.setPassword("root");
 	dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-	mySQLPaymentPurposeGateway = new MySQLPaymentPurposeGateway(dataSource,
+	mySQLPaymentPurposeGateway = new MySqlPaymentPurposeGateway(dataSource,
 		new PaymentPurposeBehaviorsFactoryImpl());
     }
 
     @Test(expected = NullDataSourceException.class)
     public void createPaymentPurposeGateway_PassingNullDataSource_ShouldThrowNullDataSource() {
-	mySQLPaymentPurposeGateway = new MySQLPaymentPurposeGateway(null, 
+	mySQLPaymentPurposeGateway = new MySqlPaymentPurposeGateway(null, 
 		new PaymentPurposeBehaviorsFactoryImpl());
     }
 

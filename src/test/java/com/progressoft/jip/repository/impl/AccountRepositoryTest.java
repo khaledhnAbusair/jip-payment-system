@@ -12,11 +12,11 @@ import com.progressoft.jip.exception.NullAccountIBANException;
 import com.progressoft.jip.gateway.AccountGateway;
 import com.progressoft.jip.gateway.CurrencyGateway;
 import com.progressoft.jip.gateway.impl.MySqlAccountGateway;
-import com.progressoft.jip.gateway.impl.SQLCurrencyGateway;
+import com.progressoft.jip.gateway.impl.MySqlCurrencyGateway;
 import com.progressoft.jip.model.Account;
 import com.progressoft.jip.repository.AccountRepository;
 
-public class MySQLAccountRepositoryTest {
+public class AccountRepositoryTest {
     private static final String DRIVER_CLASS_NAME = "com.mysql.jdbc.Driver";
     private static final String DRIVER_USERNAME = "root";
     private static final String DRIVER_PASSWORD = "root";
@@ -27,7 +27,7 @@ public class MySQLAccountRepositoryTest {
     @Before
     public void setup() {
 	BasicDataSource dataSource = connectionConfiguration();
-	CurrencyGateway currencyGateway = new SQLCurrencyGateway(dataSource);
+	CurrencyGateway currencyGateway = new MySqlCurrencyGateway(dataSource);
 	CurrencyRepositoryImpl currencyRepository = new CurrencyRepositoryImpl(currencyGateway);
 	AccountGateway accountGateway = new MySqlAccountGateway(dataSource);
 	accountRepository = new AccountsRepositoryImpl(accountGateway, currencyRepository);
