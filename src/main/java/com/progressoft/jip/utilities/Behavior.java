@@ -2,20 +2,20 @@ package com.progressoft.jip.utilities;
 
 import javax.sql.DataSource;
 
-public interface Behavior<RETURN_TYPE> {
+public interface Behavior<R> {
 
     void openConnection(DataSource dataSource);
 
     void registerParameters(Object... parameters);
 
-    RETURN_TYPE doBehavior();
+    R operation();
 
     void closeConnection();
 
-    default RETURN_TYPE execute(DataSource dataSource, Object... parameters) {
+    default R execute(DataSource dataSource, Object... parameters) {
 	openConnection(dataSource);
 	registerParameters(parameters);
-	RETURN_TYPE res = doBehavior();
+	R res = operation();
 	closeConnection();
 	return res;
     }

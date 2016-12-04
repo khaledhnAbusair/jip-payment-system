@@ -35,7 +35,7 @@ public class Behaviors {
 	}
 
 	@Override
-	public Void doBehavior() {
+	public Void operation() {
 	    Validators.CODE_LENGTH_VALIDATOR.validate(paymentPurposeDataStructure.getCode());
 	    Validators.NAME_LENGTH_VALIDATOR.validate(paymentPurposeDataStructure.getName());
 	    try {
@@ -79,7 +79,7 @@ public class Behaviors {
 	}
 
 	@Override
-	public PaymentPurposeDataStructure doBehavior() {
+	public PaymentPurposeDataStructure operation() {
 	    Validators.CODE_VALIDATORS.stream().forEach(validator -> validator.validate(code));
 	    return Executers.LOAD_PAYMENT_PURPOSE_FROM_DB_BY_CODE.execute(Utilities.preparedStatement(connection,
 		    Constants.LOAD_PAYMENT_PURPOSE_BY_CODE_SQL_STATEMENT, code));
@@ -113,7 +113,7 @@ public class Behaviors {
 	}
 
 	@Override
-	public Collection<PaymentPurposeDataStructure> doBehavior() {
+	public Collection<PaymentPurposeDataStructure> operation() {
 	    return Executers.LOAD_PAYMENT_PURPOSES.execute(Utilities.preparedStatement(connection,
 		    Constants.LOAD_PAYMENT_PURPOSES_SQL_STATEMENT));
 	}
@@ -148,7 +148,7 @@ public class Behaviors {
 	}
 
 	@Override
-	public Void doBehavior() {
+	public Void operation() {
 	    Validators.CODE_VALIDATORS.stream().forEach(validator -> validator.validate(code));
 	    Executers.DELETE_PAYMENT_PURPOSE_BY_CODE.execute(Utilities.preparedStatement(connection,
 		    Constants.DELETE_PAYMENT_PURPOSE_SQL_STATEMENT, code));
@@ -187,7 +187,7 @@ public class Behaviors {
 	}
 
 	@Override
-	public Void doBehavior() {
+	public Void operation() {
 	    Validators.CODE_VALIDATORS.stream().forEach(validator -> validator.validate(code));
 	    Validators.NULL_NAME_VALIDATOR.validate(newName);
 	    Executers.UPDATE_PAYMENT_PURPOSE_BY_NAME.execute(Utilities.preparedStatement(connection,
@@ -225,7 +225,7 @@ public class Behaviors {
 	}
 
 	@Override
-	public PaymentRequestDataStructure doBehavior() {
+	public PaymentRequestDataStructure operation() {
 	    return Executers.LOAD_PAYMENT_REQUEST_BY_ID.execute(Utilities.preparedStatement(connection,
 		    Constants.LOAD_PAYMENT_REQUEST_BY_ID_SQL_STATEMENT, id));
 	}
@@ -259,7 +259,7 @@ public class Behaviors {
 	}
 
 	@Override
-	public Void doBehavior() {
+	public Void operation() {
 	    Executers.DELETE_PAYMENT_REQUEST_BY_ID.execute(Utilities.preparedStatement(connection,
 		    Constants.DELETE_PAYMENT_REQUEST_SQL_STATMENT, id));
 	    return null;
@@ -294,7 +294,7 @@ public class Behaviors {
 	}
 
 	@Override
-	public Void doBehavior() {
+	public Void operation() {
 	    try {
 		Utilities
 			.preparedStatement(connection,
@@ -338,7 +338,7 @@ public class Behaviors {
 	}
 
 	@Override
-	public Collection<PaymentRequestDataStructure> doBehavior() {
+	public Collection<PaymentRequestDataStructure> operation() {
 	    List<PaymentRequestDataStructure> paymentRequests = new ArrayList<PaymentRequestDataStructure>();
 	    try {
 		ResultSet resultSet = Utilities.preparedStatement(connection,

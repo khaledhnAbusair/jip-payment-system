@@ -1,66 +1,63 @@
 package com.progressoft.jip.datastructures;
 
-import com.thoughtworks.xstream.annotations.XStreamAlias;
-
-@XStreamAlias("Account")
 public class AccountDatastructure {
 
-    private long id;
-    private String type;
     private String iban;
-    private Balance balance;
-    private CurrencyDataStructure currency;
+    private String accountType;
+    private double balance;
+    private Status status;
+    private String currencyCode;
 
-    public AccountDatastructure(long id, String type, String iban, Balance balance, CurrencyDataStructure currency) {
-	this.id = id;
-	this.type = type;
-	this.iban = iban;
-	this.balance = balance;
-	this.currency = currency;
-    }
-
-    public long getId() {
-	return id;
-    }
-
-    public void setId(long id) {
-	this.id = id;
+    public enum Status {
+	ACTIVE, INACTIVE;
+	public static Status fromStatus(String status) {
+	    return status.equalsIgnoreCase("active") ? Status.ACTIVE : INACTIVE;
+	}
     }
 
     public String getType() {
-	return type;
+	return accountType;
     }
 
-    public void setType(String type) {
-	this.type = type;
+    public AccountDatastructure setType(String type) {
+	this.accountType = type;
+	return this;
     }
 
     public String getIban() {
 	return iban;
     }
 
-    public void setIban(String iban) {
+    public AccountDatastructure setIban(String iban) {
 	this.iban = iban;
+	return this;
     }
 
-    public Balance getBalance() {
+    public double getBalance() {
 	return balance;
     }
 
-    public void setBalance(Balance balance) {
+    public AccountDatastructure setBalance(double balance) {
 	this.balance = balance;
+	return this;
     }
 
-    public CurrencyDataStructure getCurrency() {
-	return currency;
+    public String getCurrencyCode() {
+	return currencyCode;
     }
 
-    public void setCurrency(CurrencyDataStructure currency) {
-	this.currency = currency;
+    public AccountDatastructure setCurrencyCode(String currencyCode) {
+	this.currencyCode = currencyCode;
+	return this;
     }
-    
-    public static AccountDatastructure copyOf(AccountDatastructure account) {
-	return new AccountDatastructure(account.getId(),account.getType(),account.getIban(),account.getBalance(),account.getCurrency());
+
+    public Status getStatus() {
+	return status;
     }
-    
+
+    public AccountDatastructure setStatus(Status status) {
+	this.status = status;
+	return this;
+    }
+
 }

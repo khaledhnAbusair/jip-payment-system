@@ -1,44 +1,46 @@
 package com.progressoft.jip.repository.impl;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import com.progressoft.jip.datastructures.AccountDatastructure;
-import com.progressoft.jip.exception.NoneExistedIBANException;
-import com.progressoft.jip.gateway.AccountsGateway;
+import com.progressoft.jip.gateway.AccountGateway;
 import com.progressoft.jip.model.Account;
-import com.progressoft.jip.repository.AccountsRepository;
+import com.progressoft.jip.model.Currency;
+import com.progressoft.jip.repository.AccountRepository;
 
-public class AccountsRepositoryImpl implements AccountsRepository {
+public class AccountsRepositoryImpl implements AccountRepository {
 
-    private AccountsGateway accountsGateway;
-    private Map<String, Account> accounts = new HashMap<>();
+    private AccountGateway accountGateway;
+    private CurrencyRepositoryImpl currencyRepository;
 
-    public AccountsRepositoryImpl(AccountsGateway accountsGateway) {
-	this.accountsGateway = accountsGateway;
+    public AccountsRepositoryImpl(AccountGateway accountGateway, CurrencyRepositoryImpl currencyRepository) {
+	this.accountGateway = accountGateway;
+	this.currencyRepository = currencyRepository;
     }
 
     @Override
-    public Map<String, Account> loadAccounts() {
-	Map<String, AccountDatastructure> accountsDsMap = accountsGateway.loadAccounts();
-	for (AccountDatastructure accountDs : accountsDsMap.values())
-	    accounts.put(accountDs.getIban(), Account.newAccountModel(accountDs));
-	return this.accounts;
+    public Account loadAccountByIBAN(String iban) {
+	AccountDatastructure loadedAccount = accountGateway.loadAccountByIBAN(iban);
+	Currency currency = getAccountCurrency(loadedAccount);
+	Account account = new Account(loadedAccount, currency);
+	return account;
     }
 
     @Override
-    public Account loadAccountByIBAN(String IBAN) {
-	if (accounts.isEmpty())
-	    loadAccounts();
-	if (!accounts.containsKey(IBAN))
-	    throw new NoneExistedIBANException();
-	return accounts.get(IBAN);
+    public Collection<Account> loadAccounts() {
+	Iterable<AccountDatastructure> accountsBeans = accountGateway.loadAccounts();
+	List<Account> accounts = new ArrayList<>();
+	for (AccountDatastructure accountDS : accountsBeans) {
+	    Currency currency = getAccountCurrency(accountDS);
+	    accounts.add(new Account(accountDS, currency));
+	}
+	return accounts;
     }
 
-    @Override
-    public void updateAccount(String IBAN, Account account) {
-	accountsGateway.updateAccount(IBAN, account.asDataStructure());
-	accounts.put(IBAN, account);
+    private Currency getAccountCurrency(AccountDatastructure accountDS) {
+	return currencyRepository.loadCurrencyByCode(accountDS.getCurrencyCode());
     }
 
 }
