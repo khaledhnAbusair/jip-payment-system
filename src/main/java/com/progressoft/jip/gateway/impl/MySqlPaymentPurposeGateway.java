@@ -5,9 +5,10 @@ import java.util.Collection;
 import javax.sql.DataSource;
 
 import com.progressoft.jip.datastructures.PaymentPurposeDataStructure;
+import com.progressoft.jip.factory.Behavior;
+import com.progressoft.jip.factory.PaymentPurposeBehaviorsFactory;
+import com.progressoft.jip.gateway.AbstractGateway;
 import com.progressoft.jip.gateway.PaymentPurposeGateway;
-import com.progressoft.jip.utilities.Behavior;
-import com.progressoft.jip.utilities.PaymentPurposeBehaviorsFactory;
 
 public class MySqlPaymentPurposeGateway extends AbstractGateway implements PaymentPurposeGateway {
 

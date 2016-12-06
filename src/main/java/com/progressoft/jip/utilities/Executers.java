@@ -9,9 +9,9 @@ import java.util.List;
 
 import com.progressoft.jip.datastructures.PaymentPurposeDataStructure;
 import com.progressoft.jip.datastructures.PaymentRequestDataStructure;
-import com.progressoft.jip.exception.NoneExistingPaymentPurposeException;
-import com.progressoft.jip.exception.NoneExistingPaymentRequestException;
-import com.progressoft.jip.exception.PaymentPurposeNotFoundException;
+import com.progressoft.jip.gateway.exception.NoneExistingPaymentPurposeException;
+import com.progressoft.jip.gateway.exception.NoneExistingPaymentRequestException;
+import com.progressoft.jip.gateway.exception.PaymentPurposeNotFoundException;
 
 public class Executers {
 
@@ -103,7 +103,7 @@ public class Executers {
         	    .setBeneficiaryName(resultSet.getString(4))
         	    .setPaymentAmount(resultSet.getDouble(5))
         	    .setCurrencyCode(resultSet.getString(6))
-        	    .setPurposeCdoe(resultSet.getString(7))
+        	    .setPurposeCode(resultSet.getString(7))
         	    .setPaymentDate(resultSet.getDate(8));
 	} catch (SQLException e) {
 	    throw new IllegalStateException(e);

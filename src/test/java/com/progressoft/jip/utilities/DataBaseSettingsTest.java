@@ -25,7 +25,7 @@ public class DataBaseSettingsTest {
 
     @Test
     public void givenDataBaseSettings_CallingUrl_ShouldReturnRoot() {
-	Assert.assertEquals("jdbc:mysql://localhost:3306/payment_system", dataBaseSettings.url());
+	Assert.assertEquals("jdbc:mysql://localhost:3306/PAYMENT_SYSTEM", dataBaseSettings.url());
     }
 
     @Test

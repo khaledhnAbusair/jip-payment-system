@@ -4,14 +4,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-import com.progressoft.jip.exception.DataExceedingCodeColumnLimitException;
-import com.progressoft.jip.exception.DataExceedingNameColumnLimitException;
-import com.progressoft.jip.exception.EmptyPaymentPurposeCodeException;
-import com.progressoft.jip.exception.NullPaymentPurposeCodeException;
-import com.progressoft.jip.exception.NullPaymentPurposeNameException;
+import com.progressoft.jip.gateway.exception.DataExceedingCodeColumnLimitException;
+import com.progressoft.jip.gateway.exception.DataExceedingNameColumnLimitException;
+import com.progressoft.jip.gateway.exception.EmptyPaymentPurposeCodeException;
+import com.progressoft.jip.gateway.exception.NullPaymentPurposeCodeException;
+import com.progressoft.jip.gateway.exception.NullPaymentPurposeNameException;
 
 public class Validators {
-    
+
     public interface Validator<T> {
 	void validate(T str);
     }

@@ -6,12 +6,13 @@ import org.apache.commons.dbcp.BasicDataSource;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.progressoft.jip.exception.EmptyPaymentPurposeCodeException;
-import com.progressoft.jip.exception.NoneExistingPaymentPurposeException;
-import com.progressoft.jip.exception.NullPaymentPurposeCodeException;
-import com.progressoft.jip.exception.NullPaymentPurposeNameException;
+import com.progressoft.jip.factory.impl.PaymentPurposeBehaviorsFactoryImpl;
+import com.progressoft.jip.gateway.exception.EmptyPaymentPurposeCodeException;
+import com.progressoft.jip.gateway.exception.NoneExistingPaymentPurposeException;
+import com.progressoft.jip.gateway.exception.NullPaymentPurposeCodeException;
+import com.progressoft.jip.gateway.exception.NullPaymentPurposeNameException;
 import com.progressoft.jip.gateway.impl.MySqlPaymentPurposeGateway;
-import com.progressoft.jip.utilities.PaymentPurposeBehaviorsFactoryImpl;
+import com.progressoft.jip.utilities.DataBaseSettings;
 
 public class PaymentPurposeRepositoryTest {
 
@@ -20,10 +21,11 @@ public class PaymentPurposeRepositoryTest {
     @Before
     public void setup() {
 	BasicDataSource dataSource = new BasicDataSource();
-	dataSource.setUsername("root");
-	dataSource.setPassword("root");
-	dataSource.setUrl("jdbc:mysql://localhost:3306/PAYMENT_SYSTEM");
-	dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+	DataBaseSettings dbSettings = DataBaseSettings.getInstance();
+	dataSource.setUrl(dbSettings.url());
+	dataSource.setUsername(dbSettings.username());
+	dataSource.setPassword(dbSettings.password());
+	dataSource.setDriverClassName(dbSettings.driverClassName());
 	paymentPurposeRepository = new PaymentPurposeRepositoryMock(new MySqlPaymentPurposeGateway(dataSource,
 		new PaymentPurposeBehaviorsFactoryImpl()));
     }
@@ -45,7 +47,7 @@ public class PaymentPurposeRepositoryTest {
 
     @Test
     public void givenPaymentPurposeRepository_CallingLoadPaymentPurposes_ShouldReturnAllPaymentPurposes() {
-	assertEquals(9, paymentPurposeRepository.loadPaymentPurposes().size());
+	assertEquals(2, paymentPurposeRepository.loadPaymentPurposes().size());
     }
 
     @Test
@@ -71,8 +73,8 @@ public class PaymentPurposeRepositoryTest {
 
     @Test
     public void givenPaymentPurposeGateway_CallingInsertPaymentPurpose_ShouldInsertPaymentPurpose() {
-	paymentPurposeRepository.insertPaymentPurpose("newCode", "newName");
-	paymentPurposeRepository.deletePaymentPurpose("newCode");
+	paymentPurposeRepository.insertPaymentPurpose("NEW1", "newName");
+	paymentPurposeRepository.deletePaymentPurpose("NEW1");
     }
 
     @Test(expected = NoneExistingPaymentPurposeException.class)

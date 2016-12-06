@@ -14,4 +14,6 @@ public interface PaymentRequestGateway {
 
     Collection<PaymentRequestDataStructure> loadPaymentRequests();
 
+    Collection<PaymentRequestDataStructure> loadPaymentRequestsByOrderingAccountIBAN(String IBAN);
+
 }

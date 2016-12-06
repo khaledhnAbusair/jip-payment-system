@@ -14,4 +14,6 @@ public interface PaymentRequestRepository {
 
     void deletePaymentRequestById(int id);
 
+    Collection<PaymentRequest> loadPaymentRequestsByOrderingAccountIBAN(String IBAN);
+
 }

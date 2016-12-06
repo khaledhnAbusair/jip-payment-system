@@ -1,11 +1,13 @@
 package com.progressoft.jip.gateway;
 
+import java.util.Collection;
+
 import com.progressoft.jip.datastructures.CurrencyDataStructure;
 
 public interface CurrencyGateway {
 
-	Iterable<CurrencyDataStructure> loadCurrencies();
+    Collection<CurrencyDataStructure> loadCurrencies();
 
-	CurrencyDataStructure loadCurrencyByCode(String currencyCode);
+    CurrencyDataStructure loadCurrencyByCode(String currencyCode);
 
 }

@@ -2,15 +2,21 @@ package com.progressoft.jip.datastructures;
 
 import java.sql.Date;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
+
+@XStreamAlias("PaymentRequest")
 public class PaymentRequestDataStructure {
 
+    @XStreamOmitField
     private int id;
+    
     private String orderingAccountIBAN;
     private String beneficiaryAccountIBAN;
     private String beneficiaryName;
     private double paymentAmount;
     private String currencyCode;
-    private String purposeCdoe;
+    private String purposeCode;
     private Date paymentDate;
 
     public PaymentRequestDataStructure() {
@@ -71,11 +77,11 @@ public class PaymentRequestDataStructure {
     }
 
     public String getPurposeCode() {
-	return purposeCdoe;
+	return purposeCode;
     }
 
-    public PaymentRequestDataStructure setPurposeCdoe(String purposeCdoe) {
-	this.purposeCdoe = purposeCdoe;
+    public PaymentRequestDataStructure setPurposeCode(String purposeCode) {
+	this.purposeCode = purposeCode;
 	return this;
     }
 

@@ -1,9 +1,12 @@
 package com.progressoft.jip.datastructures;
 
+
 public class CurrencyDataStructure {
 
     private String currencyCode;
+
     private double currencyRate;
+
     private String currencyDescription;
 
     public String getCurrencyCode() {

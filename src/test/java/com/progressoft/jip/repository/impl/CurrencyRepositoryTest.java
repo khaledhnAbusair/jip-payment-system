@@ -12,53 +12,51 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import com.progressoft.jip.factory.impl.CurrencyGatewayDBBehaviorsFactoryImpl;
 import com.progressoft.jip.gateway.impl.MySqlCurrencyGateway;
 import com.progressoft.jip.model.Currency;
 import com.progressoft.jip.repository.CurrencyRepository;
+import com.progressoft.jip.utilities.DataBaseSettings;
 
 public class CurrencyRepositoryTest {
-	
-	private static final String DATABASE_USER = "root";
-	private static final String DATABASE_PASSWORD = "root";
-	private static final String DATABASE_URL = "jdbc:mysql://localhost/payment_system?autoReconnect=true&useSSL=false";
-	private static final String DATABASE_DRIVER_CLASS_NAME = "com.mysql.cj.jdbc.Driver";
 
-	private CurrencyRepository currencyRepository;
-	@Rule
-	public ExpectedException expectedException = ExpectedException.none();
-	private BasicDataSource configureDataDource;
+    private CurrencyRepository currencyRepository;
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
+    private BasicDataSource configureDataDource;
 
-	@Before
-	public void setUp() {
-		configureDataDource = configureConnection();
-		this.currencyRepository = new CurrencyRepositoryImpl(new MySqlCurrencyGateway(configureDataDource));
-		setUpDBEnviroment(configureDataDource);
-	}
+    @Before
+    public void setUp() {
+	configureDataDource = configureConnection();
+	this.currencyRepository = new CurrencyRepositoryImpl(new MySqlCurrencyGateway(configureDataDource,new CurrencyGatewayDBBehaviorsFactoryImpl()));
+	setUpDBEnviroment(configureDataDource);
+    }
 
-	@After
-	public void tearDown() {
-		tearDownDBEnviroment(configureConnection());
-	}
+    @After
+    public void tearDown() {
+	tearDownDBEnviroment(configureConnection());
+    }
 
-	@Test
-	public void givenCurrencyRepository_WhenLoadCurrencies_ThenResultSetHasElements() {
-		Iterable<Currency> currencies = currencyRepository.loadCurrencies();
-		assertTrue(currencies.iterator().hasNext());
-	}
+    @Test
+    public void givenCurrencyRepository_WhenLoadCurrencies_ThenResultSetHasElements() {
+	Iterable<Currency> currencies = currencyRepository.loadCurrencies();
+	assertTrue(currencies.iterator().hasNext());
+    }
 
-	@Test
-	public void givenCurrenctyRepository_loadCurrencyByCode_ThenValidCurrencyShouldBeReturned() {
-		currencyRepository.loadCurrencyByCode(UPDATED_CRNCY_CODE);
+    @Test
+    public void givenCurrenctyRepository_loadCurrencyByCode_ThenValidCurrencyShouldBeReturned() {
+	currencyRepository.loadCurrencyByCode(UPDATED_CRNCY_CODE);
 
-	}
+    }
 
-	private BasicDataSource configureConnection() {
-		BasicDataSource dataSource = new BasicDataSource();
-		dataSource.setUrl(DATABASE_URL);
-		dataSource.setDriverClassName(DATABASE_DRIVER_CLASS_NAME);
-		dataSource.setUsername(DATABASE_USER);
-		dataSource.setPassword(DATABASE_PASSWORD);
-		return dataSource;
-	}
+    private BasicDataSource configureConnection() {
+	BasicDataSource dataSource = new BasicDataSource();
+	DataBaseSettings dbSettings = DataBaseSettings.getInstance();
+	dataSource.setUrl(dbSettings.url());
+	dataSource.setUsername(dbSettings.username());
+	dataSource.setPassword(dbSettings.password());
+	dataSource.setDriverClassName(dbSettings.driverClassName());
+	return dataSource;
+    }
 
 }

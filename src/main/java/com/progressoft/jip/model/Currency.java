@@ -4,11 +4,10 @@ import com.progressoft.jip.datastructures.CurrencyDataStructure;
 
 public class Currency {
 
-	private CurrencyDataStructure currency;
+    private CurrencyDataStructure currency;
 
-	public Currency(CurrencyDataStructure currency) {
-		this.currency = currency;
-	}
-	
+    public Currency(CurrencyDataStructure currency) {
+	this.currency = currency;
+    }
 
 }

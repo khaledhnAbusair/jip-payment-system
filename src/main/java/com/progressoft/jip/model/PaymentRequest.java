@@ -1,7 +1,7 @@
 package com.progressoft.jip.model;
 
-import com.progressoft.jip.builder.PaymentRequestDataStructureBuilder;
 import com.progressoft.jip.datastructures.PaymentRequestDataStructure;
+import com.progressoft.jip.datastructures.builder.PaymentRequestDataStructureBuilder;
 
 public class PaymentRequest {
 

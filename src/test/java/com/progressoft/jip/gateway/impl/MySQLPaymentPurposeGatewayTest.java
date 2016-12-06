@@ -9,17 +9,18 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.progressoft.jip.datastructures.PaymentPurposeDataStructure;
-import com.progressoft.jip.exception.DataExceedingCodeColumnLimitException;
-import com.progressoft.jip.exception.DataExceedingNameColumnLimitException;
-import com.progressoft.jip.exception.DuplicatePaymentPurposeCodeException;
-import com.progressoft.jip.exception.EmptyPaymentPurposeCodeException;
-import com.progressoft.jip.exception.NoneExistingPaymentPurposeException;
-import com.progressoft.jip.exception.NullDataSourceException;
-import com.progressoft.jip.exception.NullPaymentPurposeCodeException;
-import com.progressoft.jip.exception.NullPaymentPurposeNameException;
-import com.progressoft.jip.exception.PaymentPurposeNotFoundException;
+import com.progressoft.jip.factory.impl.PaymentPurposeBehaviorsFactoryImpl;
 import com.progressoft.jip.gateway.PaymentPurposeGateway;
-import com.progressoft.jip.utilities.PaymentPurposeBehaviorsFactoryImpl;
+import com.progressoft.jip.gateway.exception.DataExceedingCodeColumnLimitException;
+import com.progressoft.jip.gateway.exception.DataExceedingNameColumnLimitException;
+import com.progressoft.jip.gateway.exception.DuplicatePaymentPurposeCodeException;
+import com.progressoft.jip.gateway.exception.EmptyPaymentPurposeCodeException;
+import com.progressoft.jip.gateway.exception.NoneExistingPaymentPurposeException;
+import com.progressoft.jip.gateway.exception.NullDataSourceException;
+import com.progressoft.jip.gateway.exception.NullPaymentPurposeCodeException;
+import com.progressoft.jip.gateway.exception.NullPaymentPurposeNameException;
+import com.progressoft.jip.gateway.exception.PaymentPurposeNotFoundException;
+import com.progressoft.jip.utilities.DataBaseSettings;
 
 public class MySQLPaymentPurposeGatewayTest {
 
@@ -29,18 +30,18 @@ public class MySQLPaymentPurposeGatewayTest {
     @Before
     public void setup() {
 	dataSource = new BasicDataSource();
-	dataSource.setUrl("jdbc:mysql://localhost:3306/PAYMENT_SYSTEM");
-	dataSource.setUsername("root");
-	dataSource.setPassword("root");
-	dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+	DataBaseSettings dbSettings = DataBaseSettings.getInstance();
+	dataSource.setUrl(dbSettings.url());
+	dataSource.setUsername(dbSettings.username());
+	dataSource.setPassword(dbSettings.password());
+	dataSource.setDriverClassName(dbSettings.driverClassName());
 	mySQLPaymentPurposeGateway = new MySqlPaymentPurposeGateway(dataSource,
 		new PaymentPurposeBehaviorsFactoryImpl());
     }
 
     @Test(expected = NullDataSourceException.class)
     public void createPaymentPurposeGateway_PassingNullDataSource_ShouldThrowNullDataSource() {
-	mySQLPaymentPurposeGateway = new MySqlPaymentPurposeGateway(null, 
-		new PaymentPurposeBehaviorsFactoryImpl());
+	mySQLPaymentPurposeGateway = new MySqlPaymentPurposeGateway(null, new PaymentPurposeBehaviorsFactoryImpl());
     }
 
     @Test(expected = EmptyPaymentPurposeCodeException.class)
@@ -85,7 +86,7 @@ public class MySQLPaymentPurposeGatewayTest {
 
     @Test
     public void givenPaymentPurposeGateway_CallingLoadPaymentPurposes_ShouldRetunPaymentPurposes() {
-	assertEquals(9,
+	assertEquals(2,
 		new ArrayList<PaymentPurposeDataStructure>(mySQLPaymentPurposeGateway.loadPaymentPurposes()).size());
     }
 
