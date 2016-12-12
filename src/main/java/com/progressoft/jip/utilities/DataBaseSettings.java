@@ -1,10 +1,13 @@
 package com.progressoft.jip.utilities;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Objects;
 import java.util.Properties;
+
+import com.progressoft.jip.exception.DataBaseConfigurationFileDoesNotExist;
 
 public class DataBaseSettings {
 
@@ -15,7 +18,10 @@ public class DataBaseSettings {
     private DataBaseSettings() {
 	try {
 	    properties = new Properties();
-	    properties.load(new FileInputStream(Paths.get("./configurations/database.properties").toFile()));
+	    File file = Paths.get("./configurations/database.properties").toFile();
+	    if(!file.exists())
+		throw new DataBaseConfigurationFileDoesNotExist("File Path: ./configurations/database.properties");
+	    properties.load(new FileInputStream(file));
 	} catch (IOException e) {
 	    throw new IllegalStateException(e);
 	}

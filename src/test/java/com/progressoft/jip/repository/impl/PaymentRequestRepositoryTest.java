@@ -91,10 +91,15 @@ public class PaymentRequestRepositoryTest {
 
     @Test
     public void givenPaymentRequestRepository_CallingInsertPaymentRequest_PassingModel_ShouldInsertTheModel() {
-	PaymentRequestDataStructure ds = new PaymentRequestDataStructure().setBeneficiaryAccountIBAN("ibanTo")
-		.setOrderingAccountIBAN("ibanFrom").setBeneficiaryName("whatever").setCurrencyCode("JOD")
-		.setPaymentAmount(562.4).setPurposeCode("SALA").setPaymentDate(new Date(2016, 05, 11));
-	PaymentRequest paymentRequest = new PaymentRequest(ds);
+	PaymentRequestDataStructure req = new PaymentRequestDataStructure();
+	req.setBeneficiaryAccountIBAN("ibanTo");
+	req.setOrderingAccountIBAN("ibanFrom");
+	req.setBeneficiaryName("whatever");
+	req.setCurrencyCode("JOD");
+	req.setPaymentAmount(562.4);
+	req.setPurposeCode("SALA");
+	req.setPaymentDate(new Date(2016, 05, 11));
+	PaymentRequest paymentRequest = new PaymentRequest(req);
 	paymentRequestRepository.inserPaymentRequest(paymentRequest);
 	paymentRequestRepository.loadPaymentRequestById(4);
     }

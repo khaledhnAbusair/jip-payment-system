@@ -6,7 +6,7 @@ import com.progressoft.jip.datastructures.PaymentRequestDataStructure;
 import com.progressoft.jip.datastructures.builder.PaymentRequestDataStructureBuilder;
 
 public class PaymentRequestDataStructureBuilderImpl implements PaymentRequestDataStructureBuilder {
-    
+
     private int id;
     private String orderingAccountIBAN;
     private String beneficiaryAccountIBAN;
@@ -66,9 +66,15 @@ public class PaymentRequestDataStructureBuilderImpl implements PaymentRequestDat
 
     @Override
     public PaymentRequestDataStructure build() {
-	return new PaymentRequestDataStructure().setId(id).setOrderingAccountIBAN(orderingAccountIBAN)
-		.setBeneficiaryAccountIBAN(beneficiaryAccountIBAN).setBeneficiaryName(beneficiaryName)
-		.setPaymentAmount(paymentAmount).setCurrencyCode(currencyCode).setPurposeCode(purposeCode)
-		.setPaymentDate(paymentDate);
+	PaymentRequestDataStructure req = new PaymentRequestDataStructure();
+	req.setId(id);
+	req.setOrderingAccountIBAN(orderingAccountIBAN);
+	req.setBeneficiaryAccountIBAN(beneficiaryAccountIBAN);
+	req.setBeneficiaryName(beneficiaryName);
+	req.setPaymentAmount(paymentAmount);
+	req.setCurrencyCode(currencyCode);
+	req.setPurposeCode(purposeCode);
+	req.setPaymentDate(paymentDate);
+	return req;
     }
 }

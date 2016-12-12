@@ -1,11 +1,15 @@
 package com.progressoft.jip.iban.impl;
 
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.progressoft.jip.iban.IBANCountryFormatsReader;
 import com.progressoft.jip.iban.IBANValidator;
 import com.progressoft.jip.iban.IBANVersion;
+import com.progressoft.jip.iban.exception.EmptyIBANException;
+import com.progressoft.jip.iban.exception.NullIBANException;
+import com.progressoft.jip.iban.exception.TooShortIBANException;
 
 @IBANVersion("ISO13616")
 public class IBANFormatValidator implements IBANValidator {
@@ -16,6 +20,12 @@ public class IBANFormatValidator implements IBANValidator {
 
     @Override
     public boolean isValid(String iban) {
+	if (Objects.isNull(iban))
+	    throw new NullIBANException();
+	if (iban.trim().isEmpty())
+	    throw new EmptyIBANException();
+	if (iban.length() < 2)
+	    throw new TooShortIBANException();
 	String format = countryFormats.getIBANFormat(iban.substring(0, 2));
 	if (Pattern.matches(generateRegEx(format), iban))
 	    return true;

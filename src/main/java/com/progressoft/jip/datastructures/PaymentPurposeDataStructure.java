@@ -1,29 +1,32 @@
 package com.progressoft.jip.datastructures;
 
 public class PaymentPurposeDataStructure {
-	
-	private String code;
-	private String name;
 
-	public PaymentPurposeDataStructure(String code, String name) {
-		this.code = code;
-		this.name = name;
-	}
+    private String code;
+    private String name;
 
-	public String getCode() {
-		return code;
-	}
+    public PaymentPurposeDataStructure() {
+    }
 
-	public void setCode(String code) {
-		this.code = code;
-	}
+    public PaymentPurposeDataStructure(String code, String name) {
+	this.code = code;
+	this.name = name;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getCode() {
+	return code;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setCode(String code) {
+	this.code = code;
+    }
+
+    public String getName() {
+	return name;
+    }
+
+    public void setName(String name) {
+	this.name = name;
+    }
 
 }

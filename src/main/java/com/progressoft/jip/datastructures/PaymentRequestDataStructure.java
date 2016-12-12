@@ -10,7 +10,10 @@ public class PaymentRequestDataStructure {
 
     @XStreamOmitField
     private int id;
-    
+    // ID as id,ORD_IBAN as orderingAccountIBAN,BENEF_IBAN as
+    // beneficiaryAccountIBAN,BENEF_NAME as beneficiaryName,AMOUNT as
+    // paymentAmount,CURRENCY_CODE as currencyCode,PURPOSE_CODE as
+    // purposeCode,PAYMENT_DATE as paymentDate
     private String orderingAccountIBAN;
     private String beneficiaryAccountIBAN;
     private String beneficiaryName;
@@ -26,72 +29,64 @@ public class PaymentRequestDataStructure {
 	return id;
     }
 
-    public PaymentRequestDataStructure setId(int id) {
+    public void setId(int id) {
 	this.id = id;
-	return this;
     }
 
     public String getOrderingAccountIBAN() {
 	return orderingAccountIBAN;
     }
 
-    public PaymentRequestDataStructure setOrderingAccountIBAN(String orderingAccountIBAN) {
+    public void setOrderingAccountIBAN(String orderingAccountIBAN) {
 	this.orderingAccountIBAN = orderingAccountIBAN;
-	return this;
     }
 
     public String getBeneficiaryAccountIBAN() {
 	return beneficiaryAccountIBAN;
     }
 
-    public PaymentRequestDataStructure setBeneficiaryAccountIBAN(String beneficiaryAccountIBAN) {
+    public void setBeneficiaryAccountIBAN(String beneficiaryAccountIBAN) {
 	this.beneficiaryAccountIBAN = beneficiaryAccountIBAN;
-	return this;
     }
 
     public String getBeneficiaryName() {
 	return beneficiaryName;
     }
 
-    public PaymentRequestDataStructure setBeneficiaryName(String beneficiaryName) {
+    public void setBeneficiaryName(String beneficiaryName) {
 	this.beneficiaryName = beneficiaryName;
-	return this;
     }
 
     public double getPaymentAmount() {
 	return paymentAmount;
     }
 
-    public PaymentRequestDataStructure setPaymentAmount(double paymentAmount) {
+    public void setPaymentAmount(double paymentAmount) {
 	this.paymentAmount = paymentAmount;
-	return this;
     }
 
     public String getCurrencyCode() {
 	return currencyCode;
     }
 
-    public PaymentRequestDataStructure setCurrencyCode(String currencyCode) {
+    public void setCurrencyCode(String currencyCode) {
 	this.currencyCode = currencyCode;
-	return this;
     }
 
     public String getPurposeCode() {
 	return purposeCode;
     }
 
-    public PaymentRequestDataStructure setPurposeCode(String purposeCode) {
+    public void setPurposeCode(String purposeCode) {
 	this.purposeCode = purposeCode;
-	return this;
     }
 
     public Date getPaymentDate() {
 	return paymentDate;
     }
 
-    public PaymentRequestDataStructure setPaymentDate(Date paymentDate) {
+    public void setPaymentDate(Date paymentDate) {
 	this.paymentDate = paymentDate;
-	return this;
     }
 
 }

@@ -1,10 +1,13 @@
 package com.progressoft.jip.iban.impl;
 
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import com.progressoft.jip.iban.IBANValidator;
 import com.progressoft.jip.iban.IBANVersion;
+import com.progressoft.jip.iban.exception.EmptyIBANException;
+import com.progressoft.jip.iban.exception.NullIBANException;
 
 @IBANVersion("EBS204v3.2")
 public class IBANModValidator implements IBANValidator {
@@ -14,6 +17,10 @@ public class IBANModValidator implements IBANValidator {
 
     @Override
     public boolean isValid(String iban) {
+	if (Objects.isNull(iban))
+	    throw new NullIBANException();
+	if (iban.trim().isEmpty())
+	    throw new EmptyIBANException();
 	String result = iban.substring(CHARS_TO_MOVE) + iban.substring(0, CHARS_TO_MOVE);
 	result = convertLettersToNumbers(result);
 	return mod97(result) == 1;

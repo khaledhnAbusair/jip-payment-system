@@ -13,11 +13,12 @@ import javax.xml.bind.Unmarshaller;
 
 import com.progressoft.jip.iban.IBANCountryFormatsReader;
 import com.progressoft.jip.iban.IBANVersion;
+import com.progressoft.jip.iban.exception.CountryCodeNotFoundException;
 
 @IBANVersion("ISO13616")
 public class IBANCountryFormatsReaderImp implements IBANCountryFormatsReader {
-    private static final String IBAN_COUNTRY_FORMATS_FILE = "IBANCountryFormats.csv";
-    private static final String IBAN_COUNTRY_FORMATS_SETTINGS = "IBANCountryFormatsSettings.xml";
+    private static final String IBAN_COUNTRY_FORMATS_FILE = "./IBANCountryFormats.csv";
+    private static final String IBAN_COUNTRY_FORMATS_SETTINGS = "./IBANCountryFormatsSettings.xml";
     private static final String COMMA_REGEX = ",";
 
     private IBANCountryFormatsSettings ibanCountryFormatsSettings;
@@ -63,7 +64,10 @@ public class IBANCountryFormatsReaderImp implements IBANCountryFormatsReader {
 
     private Optional<String> getLineContainingCountryCode(String countryCode) {
 	try (BufferedReader br = new BufferedReader(new FileReader(new File(IBAN_COUNTRY_FORMATS_FILE)))) {
-	    return br.lines().filter(containsCountryCode(countryCode)).findAny();
+	    Optional<String> findAny = br.lines().filter(containsCountryCode(countryCode)).findAny();
+	    if(findAny.equals(Optional.empty()))
+		throw new CountryCodeNotFoundException();
+	    return findAny;
 	} catch (IOException e) {
 	    throw new IllegalArgumentException();
 	}

@@ -94,9 +94,15 @@ public class MySQLPaymentRequestGatewayTest {
 
     @Test
     public void givenPaymentRequestGateway_CallingInsertPaymentRequest_ThenCallingLoadPaymentRequestById_ShouldReturnThePaymentRequest() {
-	paymentRequestGatway.insertPaymentRequest(new PaymentRequestDataStructure().setBeneficiaryAccountIBAN("ibanTo")
-		.setOrderingAccountIBAN("ibanFrom").setBeneficiaryName("whatever").setCurrencyCode("JOD")
-		.setPaymentAmount(562.4).setPurposeCode("SALA").setPaymentDate(new Date(2016, 05, 11)));
+	PaymentRequestDataStructure req = new PaymentRequestDataStructure();
+	req.setBeneficiaryAccountIBAN("ibanTo");
+	req.setOrderingAccountIBAN("ibanFrom");
+	req.setBeneficiaryName("whatever");
+	req.setCurrencyCode("JOD");
+	req.setPaymentAmount(562.4);
+	req.setPurposeCode("SALA");
+	req.setPaymentDate(new Date(2016, 05, 11));
+	paymentRequestGatway.insertPaymentRequest(req);
 	paymentRequestGatway.loadPaymentRequestById(3);
     }
 

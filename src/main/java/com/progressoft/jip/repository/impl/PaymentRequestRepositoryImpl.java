@@ -10,7 +10,7 @@ import com.progressoft.jip.datastructures.builder.PaymentRequestDataStructureBui
 import com.progressoft.jip.gateway.PaymentRequestGateway;
 import com.progressoft.jip.model.PaymentRequest;
 import com.progressoft.jip.repository.PaymentRequestRepository;
-
+//talks to gateway and creates model from the datastructure
 public class PaymentRequestRepositoryImpl implements PaymentRequestRepository {
 
     private PaymentRequestGateway gateway;
@@ -86,10 +86,16 @@ public class PaymentRequestRepositoryImpl implements PaymentRequestRepository {
 
 	    @Override
 	    public PaymentRequestDataStructure build() {
-		return new PaymentRequestDataStructure().setId(id).setOrderingAccountIBAN(orderingAccountIBAN)
-			.setBeneficiaryAccountIBAN(beneficiaryAccountIBAN).setBeneficiaryName(beneficiaryName)
-			.setPaymentAmount(paymentAmount).setCurrencyCode(currencyCode).setPurposeCode(purposeCdoe)
-			.setPaymentDate(paymentDate);
+		PaymentRequestDataStructure req = new PaymentRequestDataStructure();
+		req.setId(id);
+		req.setOrderingAccountIBAN(orderingAccountIBAN);
+		req.setBeneficiaryAccountIBAN(beneficiaryAccountIBAN);
+		req.setBeneficiaryName(beneficiaryName);
+		req.setPaymentAmount(paymentAmount);
+		req.setCurrencyCode(currencyCode);
+		req.setPurposeCode(purposeCdoe);
+		req.setPaymentDate(paymentDate);
+		return req;
 	    }
 	};
 	paymentRequest.build(builder);
@@ -108,7 +114,8 @@ public class PaymentRequestRepositoryImpl implements PaymentRequestRepository {
 
     @Override
     public Collection<PaymentRequest> loadPaymentRequestsByOrderingAccountIBAN(String IBAN) {
-	return datastructureListToModelList((List<PaymentRequestDataStructure>) gateway.loadPaymentRequestsByOrderingAccountIBAN(IBAN));
+	return datastructureListToModelList((List<PaymentRequestDataStructure>) gateway
+		.loadPaymentRequestsByOrderingAccountIBAN(IBAN));
     }
 
     private Collection<PaymentRequest> datastructureListToModelList(List<PaymentRequestDataStructure> datastructureList) {

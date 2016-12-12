@@ -1,22 +1,19 @@
 package com.progressoft.jip.factory.impl;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
+import java.util.Objects;
 
-import javax.sql.DataSource;
+import org.apache.commons.dbutils.handlers.BeanHandler;
+import org.apache.commons.dbutils.handlers.BeanListHandler;
 
 import com.progressoft.jip.datastructures.CurrencyDataStructure;
+import com.progressoft.jip.factory.AbstractBehavior;
 import com.progressoft.jip.factory.Behavior;
 import com.progressoft.jip.factory.CurrencyGatewayDBBehaviorsFactory;
 import com.progressoft.jip.gateway.exception.CurrencyNotFoundExption;
-import com.progressoft.jip.gateway.exception.EmptyResultSetException;
 import com.progressoft.jip.gateway.exception.ShortCurrencyCodeException;
 import com.progressoft.jip.utilities.Constants;
-import com.progressoft.jip.utilities.Utilities;
 
 public class CurrencyGatewayDBBehaviorsFactoryImpl implements CurrencyGatewayDBBehaviorsFactory {
 
@@ -29,111 +26,48 @@ public class CurrencyGatewayDBBehaviorsFactoryImpl implements CurrencyGatewayDBB
     public Behavior<CurrencyDataStructure> loadCurrencyByCode() {
 	return LOAD_CURRENCY_BY_CODE;
     }
-    
-    public static final Behavior<Collection<CurrencyDataStructure>> LOAD_CURRENCIES = new Behavior<Collection<CurrencyDataStructure>>() {
 
-	private Connection connection;
-
-	@Override
-	public void openConnection(DataSource dataSource) {
-	    try {
-		connection = dataSource.getConnection();
-	    } catch (SQLException e) {
-		e.printStackTrace();
-	    }
-	}
-
-	@Override
-	public void registerParameters(Object... parameters) {
-	}
+    public static final Behavior<Collection<CurrencyDataStructure>> LOAD_CURRENCIES = new AbstractBehavior<Collection<CurrencyDataStructure>>() {
 
 	@Override
 	public Collection<CurrencyDataStructure> operation() {
-	    List<CurrencyDataStructure> currencies = new ArrayList<>();
 	    try {
-		ResultSet rs = Utilities.preparedStatement(connection, Constants.SELECT_ALL_CRNCYS).executeQuery();
-		if (!rs.isBeforeFirst()) {
-		    throw new EmptyResultSetException();
-		}
-		while (rs.next()) {
-		    currencies.add(buildCurrency(rs));
-		}
-		return currencies;
+		return runner.query(Constants.SELECT_ALL_CRNCYS, new BeanListHandler<>(CurrencyDataStructure.class));
 	    } catch (SQLException e) {
 		throw new IllegalStateException(e);
 	    }
 	}
 
-	@Override
-	public void closeConnection() {
-	    try {
-		connection.close();
-	    } catch (SQLException e) {
-		e.printStackTrace();
-	    }
-	}
     };
 
-    public static final Behavior<CurrencyDataStructure> LOAD_CURRENCY_BY_CODE = new Behavior<CurrencyDataStructure>() {
-
-	private String code;
-	private Connection connection;
-
-	@Override
-	public void openConnection(DataSource dataSource) {
-	    try {
-		connection = dataSource.getConnection();
-	    } catch (SQLException e) {
-		e.printStackTrace();
-	    }
-	}
-
-	@Override
-	public void registerParameters(Object... parameters) {
-	    code = (String) parameters[0];
-	}
+    public static final Behavior<CurrencyDataStructure> LOAD_CURRENCY_BY_CODE = new AbstractBehavior<CurrencyDataStructure>() {
 
 	@Override
 	public CurrencyDataStructure operation() {
-	    if (code.length() < 3)
+	    String code = (String) parameters[0];
+	    if (isShortCode(code))
 		throw new ShortCurrencyCodeException();
-	    ResultSet rs;
+	    return loadCurrency(loadCurrenciesFromDB(code));
+	}
+
+	private CurrencyDataStructure loadCurrency(CurrencyDataStructure currency) {
+	    if (Objects.isNull(currency))
+		throw new CurrencyNotFoundExption();
+	    return currency;
+	}
+
+	private CurrencyDataStructure loadCurrenciesFromDB(String code) {
 	    try {
-		rs = Utilities.preparedStatement(connection, Constants.SELECT_CRNCY_BY_CODE, code).executeQuery();
-		if (!rs.isBeforeFirst()) {
-		    throw new CurrencyNotFoundExption();
-		}
-		rs.next();
-		return buildCurrency(rs);
+		return runner.query(Constants.SELECT_CRNCY_BY_CODE, new BeanHandler<>(CurrencyDataStructure.class),
+			code);
 	    } catch (SQLException e) {
 		throw new IllegalStateException(e);
 	    }
-
 	}
 
-	@Override
-	public void closeConnection() {
-	    try {
-		connection.close();
-	    } catch (SQLException e) {
-		e.printStackTrace();
-	    }
+	private boolean isShortCode(String code) {
+	    return code.length() < 3;
 	}
     };
-
-    private static CurrencyDataStructure buildCurrency(ResultSet rs) {
-	try {
-	    String currCode = rs.getString(Constants.CRNCY_CODE_COLOMN);
-	    String currDescription = rs.getString(Constants.CRNCY_DESC_COLOMN);
-	    double currRate = rs.getDouble(Constants.CRNCY_RATE_COLOMN);
-	    CurrencyDataStructure currency = new CurrencyDataStructure();
-	    currency.setCurrencyCode(currCode);
-	    currency.setCurrencyDescription(currDescription);
-	    currency.setCurrencyRate(currRate);
-	    return currency;
-	} catch (SQLException e) {
-	    throw new IllegalStateException(e);
-	}
-    }
 
 }

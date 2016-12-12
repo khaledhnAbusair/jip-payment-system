@@ -9,7 +9,7 @@ import com.progressoft.jip.factory.Behavior;
 import com.progressoft.jip.factory.PaymentRequestBehaviorsFactory;
 import com.progressoft.jip.gateway.AbstractGateway;
 import com.progressoft.jip.gateway.PaymentRequestGateway;
-
+//Crud operations with ds
 public class MySqlPaymentRequestGateway extends AbstractGateway implements PaymentRequestGateway {
 
     private Behavior<PaymentRequestDataStructure> loadPaymentRequestById;
