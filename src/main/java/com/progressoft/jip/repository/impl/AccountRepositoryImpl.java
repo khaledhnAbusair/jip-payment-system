@@ -13,12 +13,13 @@ import com.progressoft.jip.gateway.impl.MySqlCurrencyGateway;
 import com.progressoft.jip.model.Account;
 import com.progressoft.jip.model.Currency;
 import com.progressoft.jip.repository.AccountRepository;
+import com.progressoft.jip.repository.CurrencyRepository;
 import com.progressoft.jip.utilities.DataBaseSettings;
 
 public class AccountRepositoryImpl implements AccountRepository {
 
     private AccountGateway accountGateway;
-    private CurrencyRepositoryImpl currencyRepository;
+    private CurrencyRepository currencyRepository;
 
     public AccountRepositoryImpl(AccountGateway accountGateway) {
 	this.accountGateway = accountGateway;
@@ -26,7 +27,7 @@ public class AccountRepositoryImpl implements AccountRepository {
 		new CurrencyGatewayDBBehaviorsFactoryImpl()));
     }
 
-    public AccountRepositoryImpl(AccountGateway accountGateway, CurrencyRepositoryImpl currencyRepository) {
+    public AccountRepositoryImpl(AccountGateway accountGateway, CurrencyRepository currencyRepository) {
 	this.accountGateway = accountGateway;
 	this.currencyRepository = currencyRepository;
     }

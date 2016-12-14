@@ -1,8 +1,8 @@
-package com.progressoft.jip.datastructures.builder.impl;
+package com.progressoft.jip.view;
 
-import com.progressoft.jip.datastructures.builder.AccountInfoBuilder;
+import com.progressoft.jip.datastructures.builder.AccountViewBuilder;
 
-public class AccountView implements AccountInfoBuilder {
+public class AccountView implements AccountViewBuilder {
 
     private String IBAN;
 
@@ -11,7 +11,7 @@ public class AccountView implements AccountInfoBuilder {
     }
 
     @Override
-    public AccountInfoBuilder setIban(String IBAN) {
+    public AccountViewBuilder setIban(String IBAN) {
 	this.IBAN = IBAN;
 	return this;
     }

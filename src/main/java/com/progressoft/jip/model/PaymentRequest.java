@@ -1,7 +1,10 @@
 package com.progressoft.jip.model;
 
+import java.util.Arrays;
+
 import com.progressoft.jip.datastructures.PaymentRequestDataStructure;
 import com.progressoft.jip.datastructures.builder.PaymentRequestDataStructureBuilder;
+import com.progressoft.jip.iban.IBANValidator;
 
 public class PaymentRequest {
 
@@ -9,6 +12,11 @@ public class PaymentRequest {
 
     public PaymentRequest(PaymentRequestDataStructure dataStructure) {
 	this.dataStructure = dataStructure;
+    }
+
+    public boolean validateIBAN(IBANValidator... validators) {
+	return Arrays.asList(validators).stream()
+		.allMatch((validator) -> validator.isValid(dataStructure.getBeneficiaryAccountIBAN()));
     }
 
     public void build(PaymentRequestDataStructureBuilder builder) {

@@ -1,7 +1,7 @@
 package com.progressoft.jip.model;
 
 import com.progressoft.jip.datastructures.AccountDatastructure;
-import com.progressoft.jip.datastructures.builder.AccountInfoBuilder;
+import com.progressoft.jip.datastructures.builder.AccountViewBuilder;
 
 public class Account {
 
@@ -13,8 +13,8 @@ public class Account {
 	this.currency = currency;
     }
 
-    public void buildAccountInfo(AccountInfoBuilder accountInfoBuilder) {
-	accountInfoBuilder.setIban(accountDatastructure.getIban());
+    public void buildAccountInfo(AccountViewBuilder accountViewBuilder) {
+	accountViewBuilder.setIban(accountDatastructure.getIban());
     }
 
 }

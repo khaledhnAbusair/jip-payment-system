@@ -10,10 +10,6 @@ public class PaymentRequestDataStructure {
 
     @XStreamOmitField
     private int id;
-    // ID as id,ORD_IBAN as orderingAccountIBAN,BENEF_IBAN as
-    // beneficiaryAccountIBAN,BENEF_NAME as beneficiaryName,AMOUNT as
-    // paymentAmount,CURRENCY_CODE as currencyCode,PURPOSE_CODE as
-    // purposeCode,PAYMENT_DATE as paymentDate
     private String orderingAccountIBAN;
     private String beneficiaryAccountIBAN;
     private String beneficiaryName;

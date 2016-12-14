@@ -7,7 +7,7 @@ import com.progressoft.jip.model.actions.MenuItem;
 public class MenuItemModel {
 
     private int id;
-    private MenuItem value;
+    protected MenuItem value;
 
     public MenuItemModel(int id, MenuItem value) {
 	this.id = id;

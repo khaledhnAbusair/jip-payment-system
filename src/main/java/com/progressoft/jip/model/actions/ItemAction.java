@@ -1,5 +1,5 @@
 package com.progressoft.jip.model.actions;
 
-public interface OptionAction {
+public interface ItemAction {
     void execute();
 }

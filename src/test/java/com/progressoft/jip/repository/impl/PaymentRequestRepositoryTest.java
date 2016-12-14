@@ -16,6 +16,8 @@ import com.progressoft.jip.datastructures.builder.impl.PaymentRequestDataStructu
 import com.progressoft.jip.factory.impl.PaymentRequestBehaviorsFactoryImpl;
 import com.progressoft.jip.gateway.exception.NoneExistingPaymentRequestException;
 import com.progressoft.jip.gateway.impl.MySqlPaymentRequestGateway;
+import com.progressoft.jip.iban.impl.IBANFormatValidator;
+import com.progressoft.jip.iban.impl.IBANModValidator;
 import com.progressoft.jip.model.PaymentRequest;
 import com.progressoft.jip.repository.PaymentRequestRepository;
 import com.progressoft.jip.utilities.Constants;
@@ -92,7 +94,7 @@ public class PaymentRequestRepositoryTest {
     @Test
     public void givenPaymentRequestRepository_CallingInsertPaymentRequest_PassingModel_ShouldInsertTheModel() {
 	PaymentRequestDataStructure req = new PaymentRequestDataStructure();
-	req.setBeneficiaryAccountIBAN("ibanTo");
+	req.setBeneficiaryAccountIBAN("JO94CBJO0010000000000131000302");
 	req.setOrderingAccountIBAN("ibanFrom");
 	req.setBeneficiaryName("whatever");
 	req.setCurrencyCode("JOD");
