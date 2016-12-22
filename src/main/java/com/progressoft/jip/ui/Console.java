@@ -51,21 +51,21 @@ public class Console {
 
     private void displayAccounts(AppContext context, Menu accountOptionsMenu) {
         for (AccountView accountView : new LoadAccountsUseCase().loadAccounts()) {
-            accountOptionsMenu.addMenuItem(ItemContentFactory.instance(accountView.iban(), () -> {
+            accountOptionsMenu.addMenuItem(ItemContentFactory.instance(accountView.getIban(), () -> {
 
-                Menu currentAccountMenu = Menu.subMenu("Account \"" + accountView.iban() + "\" Options", accountOptionsMenu);
+                Menu currentAccountMenu = Menu.subMenu("Account \"" + accountView.getIban() + "\" Options", accountOptionsMenu);
                 currentAccountMenu.addMenuItem(ItemContentFactory.instance("Create Payment Request", () -> {
                     CreateNewPaymentRequestUseCase useCase = new CreateNewPaymentRequestUseCase();
-                    useCase.createPaymentRequestFrom(accountView.iban());
+                    useCase.createPaymentRequestFrom(accountView.getIban());
                 }));
                 currentAccountMenu.addMenuItem(ItemContentFactory.instance("Show Payments", () -> {
                     ReportProvider reportProvider = new ReportProvider(context.paymentRequestRepositroy());
                     Menu xmlCsvMenu = Menu.subMenu("Choose Report format please:", currentAccountMenu);
                     xmlCsvMenu.addMenuItem(ItemContentFactory.instance("XML", () -> {
-                        reportProvider.print(accountView.iban(), new XMLReportWriter(), System.out);
+                        reportProvider.print(accountView.getIban(), new XMLReportWriter(), System.out);
                     }));
                     xmlCsvMenu.addMenuItem(ItemContentFactory.instance("CSV", () -> {
-                        reportProvider.print(accountView.iban(), new CSVReportWriter(), System.out);
+                        reportProvider.print(accountView.getIban(), new CSVReportWriter(), System.out);
                     }));
                     xmlCsvMenu.display(System.out);
                 }));

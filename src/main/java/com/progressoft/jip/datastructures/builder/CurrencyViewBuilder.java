@@ -1,6 +1,5 @@
 package com.progressoft.jip.datastructures.builder;
 
-
 import com.progressoft.jip.view.CurrencyView;
 
 public interface CurrencyViewBuilder {
@@ -9,5 +8,5 @@ public interface CurrencyViewBuilder {
 
     CurrencyViewBuilder setName(String name);
 
-    CurrencyViewBuilder build();
+    CurrencyView build();
 }

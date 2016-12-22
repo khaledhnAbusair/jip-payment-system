@@ -1,12 +1,11 @@
 package com.progressoft.jip.usecase;
 
-import com.progressoft.jip.context.AppContext;
-import com.progressoft.jip.repository.CurrencyRepository;
-import com.progressoft.jip.view.CurrencyView;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import com.progressoft.jip.repository.CurrencyRepository;
+import com.progressoft.jip.view.CurrencyView;
 
 public class LoadCurrenciesUseCase {
 

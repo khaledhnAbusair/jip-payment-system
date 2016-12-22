@@ -80,7 +80,7 @@ public class MySQLPaymentPurposeGatewayTest {
 
     @Test(expected = DuplicatePaymentPurposeCodeException.class)
     public void givenPaymentPurposeGateway_CallingInsertPaymentPurpose_PassPaymentPurposWithExistingCode_ShouldThrowDuplicatePaymentPurposeCode() {
-	PaymentPurposeDataStructure paymentPurposeDataStructure = new PaymentPurposeDataStructure("GHAD", "GHADEER");
+	PaymentPurposeDataStructure paymentPurposeDataStructure = new PaymentPurposeDataStructure("SALA", "GHADEER");
 	mySQLPaymentPurposeGateway.insertPaymentPurpose(paymentPurposeDataStructure);
     }
 

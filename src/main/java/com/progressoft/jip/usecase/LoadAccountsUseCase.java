@@ -21,28 +21,28 @@ public class LoadAccountsUseCase {
     private AccountRepository accountRepository;
 
     public LoadAccountsUseCase() {
-	accountRepository = new AccountRepositoryImpl(new MySqlAccountGateway(prepareDatasource(),
-		new AccountGatewayDBBehaviorsFactoryImpl()));
+        accountRepository = new AccountRepositoryImpl(new MySqlAccountGateway(prepareDatasource(),
+                new AccountGatewayDBBehaviorsFactoryImpl()));
     }
 
     private DataSource prepareDatasource() {
-	BasicDataSource dataSource = new BasicDataSource();
-	DataBaseSettings settings = DataBaseSettings.getInstance();
-	dataSource.setUsername(settings.username());
-	dataSource.setPassword(settings.password());
-	dataSource.setUrl(settings.url());
-	dataSource.setDriverClassName(settings.driverClassName());
-	return dataSource;
+        BasicDataSource dataSource = new BasicDataSource();
+        DataBaseSettings settings = DataBaseSettings.getInstance();
+        dataSource.setUsername(settings.username());
+        dataSource.setPassword(settings.password());
+        dataSource.setUrl(settings.url());
+        dataSource.setDriverClassName(settings.driverClassName());
+        return dataSource;
     }
 
     public Collection<AccountView> loadAccounts() {
-	List<AccountView> accounts = new ArrayList<>();
-	AccountView accountInfo = new AccountView();
-	for (Account account : accountRepository.loadAccounts()) {
-	    account.buildAccountInfo(accountInfo);
-	    accounts.add(accountInfo.build());
-	}
-	return accounts;
+        List<AccountView> accounts = new ArrayList<>();
+        AccountView accountInfo = new AccountView();
+        for (Account account : accountRepository.loadAccounts()) {
+            account.buildAccountView(accountInfo);
+            accounts.add(accountInfo.build());
+        }
+        return accounts;
 
     }
 }

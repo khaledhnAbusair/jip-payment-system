@@ -10,4 +10,8 @@ public interface AccountGatewayDBBehaviorsFactory {
 
     Behavior<Collection<AccountDatastructure>> loadAccounts();
 
+	Behavior<Void> updateAccount();
+
+	Behavior<Void> createAccount();
+
 }

@@ -25,43 +25,39 @@ import com.progressoft.jip.repository.impl.PaymentRequestRepositoryImpl;
 
 public class AppContext {
 
-    private DataSource dataSource;
+	private static PaymentRequestBehaviorsFactory paymentRequestBehaviorsFactory = new PaymentRequestBehaviorsFactoryImpl();
+	private static PaymentPurposeBehaviorsFactory paymentPurposeBehaviorsFactory = new PaymentPurposeBehaviorsFactoryImpl();
+	private static CurrencyGatewayDBBehaviorsFactory currencyBehaviorsFactory = new CurrencyGatewayDBBehaviorsFactoryImpl();
+	private static AccountGatewayDBBehaviorsFactory accountBehaviorsFactory = new AccountGatewayDBBehaviorsFactoryImpl();
 
-    private static PaymentRequestBehaviorsFactory paymentRequestBehaviorsFactory = new PaymentRequestBehaviorsFactoryImpl();
-    private static PaymentPurposeBehaviorsFactory paymentPurposeBehaviorsFactory = new PaymentPurposeBehaviorsFactoryImpl();
-    private static CurrencyGatewayDBBehaviorsFactory currencyBehaviorsFactory = new CurrencyGatewayDBBehaviorsFactoryImpl();
-    private static AccountGatewayDBBehaviorsFactory accountBehaviorsFactory = new AccountGatewayDBBehaviorsFactoryImpl();
+	private final PaymentRequestRepository paymentRequestRepository;
+	private final PaymentPurposeRepository paymentPurposeRepository;
+	private final CurrencyRepository currencyRepository;
+	private final AccountRepository accountRepository;
 
-    private final PaymentRequestRepository paymentRequestRepository;
-    private final PaymentPurposeRepository paymentPurposeRepository;
-    private final CurrencyRepository currencyRepository;
-    private final AccountRepository accountRepository;
+	public AppContext(DataSource dataSource) {
+		paymentRequestRepository = new PaymentRequestRepositoryImpl(
+				new MySqlPaymentRequestGateway(dataSource, paymentRequestBehaviorsFactory));
+		paymentPurposeRepository = new PaymentPurposeRepositoryImpl(
+				new MySqlPaymentPurposeGateway(dataSource, paymentPurposeBehaviorsFactory));
+		currencyRepository = new CurrencyRepositoryImpl(new MySqlCurrencyGateway(dataSource, currencyBehaviorsFactory));
+		accountRepository = new AccountRepositoryImpl(new MySqlAccountGateway(dataSource, accountBehaviorsFactory));
+	}
 
-    public AppContext(DataSource dataSource) {
-	this.dataSource = dataSource;
-	paymentRequestRepository = new PaymentRequestRepositoryImpl(new MySqlPaymentRequestGateway(dataSource,
-		paymentRequestBehaviorsFactory));
-	paymentPurposeRepository = new PaymentPurposeRepositoryImpl(new MySqlPaymentPurposeGateway(dataSource,
-		paymentPurposeBehaviorsFactory));
-	currencyRepository = new CurrencyRepositoryImpl(new MySqlCurrencyGateway(dataSource, currencyBehaviorsFactory));
-	accountRepository = new AccountRepositoryImpl(new MySqlAccountGateway(dataSource, accountBehaviorsFactory),
-		currencyRepository);
-    }
+	public PaymentRequestRepository paymentRequestRepositroy() {
+		return paymentRequestRepository;
+	}
 
-    public PaymentRequestRepository paymentRequestRepositroy() {
-	return paymentRequestRepository;
-    }
+	public PaymentPurposeRepository paymentPurposeRepository() {
+		return paymentPurposeRepository;
+	}
 
-    public PaymentPurposeRepository paymentPurposeRepository() {
-	return paymentPurposeRepository;
-    }
+	public CurrencyRepository currencyRepository() {
+		return currencyRepository;
+	}
 
-    public CurrencyRepository currencyRepository() {
-	return currencyRepository;
-    }
-
-    public AccountRepository accountRepository() {
-	return accountRepository;
-    }
+	public AccountRepository accountRepository() {
+		return accountRepository;
+	}
 
 }

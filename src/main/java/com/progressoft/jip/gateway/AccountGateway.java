@@ -6,8 +6,12 @@ import com.progressoft.jip.datastructures.AccountDatastructure;
 
 public interface AccountGateway {
 
-    public AccountDatastructure loadAccountByIBAN(String IBAN);
+	public AccountDatastructure loadAccountByIBAN(String IBAN);
 
-    public Collection<AccountDatastructure> loadAccounts();
+	public Collection<AccountDatastructure> loadAccounts();
+
+	void updateAccount(AccountDatastructure account);
+
+	void createAccount(AccountDatastructure newAccount);
 
 }

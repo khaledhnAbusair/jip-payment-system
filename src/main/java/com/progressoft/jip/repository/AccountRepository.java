@@ -6,8 +6,12 @@ import com.progressoft.jip.model.Account;
 
 public interface AccountRepository {
 
-    Account loadAccountByIBAN(String string);
+	Account loadAccountByIBAN(String string);
 
-    Collection<Account> loadAccounts();
+	Collection<Account> loadAccounts();
+
+	void updateAccount(Account account);
+
+	void createAccount(Account account);
 
 }
