@@ -4,9 +4,7 @@ import com.progressoft.jip.view.CurrencyView;
 
 public interface CurrencyViewBuilder {
 
-    CurrencyViewBuilder setCode(String code);
+	CurrencyViewBuilder setCode(String code);
 
-    CurrencyViewBuilder setName(String name);
-
-    CurrencyView build();
+	CurrencyView build();
 }
