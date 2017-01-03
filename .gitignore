@@ -1,8 +1,5 @@
 .project
-*/.settings/*
-*/.settings/**
-*/target/*
-*/target/**
-*/.idea/*
-*/.idea/**
+.settings/
+target/
+.idea/
 .classpath  
