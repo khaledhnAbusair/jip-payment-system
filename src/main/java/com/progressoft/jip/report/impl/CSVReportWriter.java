@@ -14,14 +14,14 @@ public class CSVReportWriter implements ReportWriter {
     @Override
     public void write(String accountIBAN, Collection<PaymentRequest> paymentRequests, PrintStream stream) {
         stream.println("Ordering Account IBAN: " + accountIBAN);
-        stream.println("PaymentRequests");
+        stream.printf("%-22s,%-34s,%-34s,%-16s,%-16s,%-16s,%-16s,%-64s,%-16s%n","Payment Request Number","Ordering IBAN","Beneficiary IBAN","Beneficiary Name","Payment Amount","Currency Code","Purpose Code","Amount In Words","Payment Date");
         for (PaymentRequest request : paymentRequests) {
             PaymentRequestDataStructureBuilder builder = new PaymentRequestDataStructureBuilderImpl();
             request.build(builder);
             PaymentRequestDataStructure ds = builder.build();
-            stream.printf("PaymentRequest-%d,%s,%s,%s,%f,%s,%s,%s\n", ds.getId(), ds.getOrderingAccountIBAN(),
+            stream.printf("%-22s,%-34s,%-34s,%-16s,%-16f,%-16s,%-16s,%-64s ,%-16s%n","PaymentRequest-"+ ds.getId(), ds.getOrderingAccountIBAN(),
                     ds.getBeneficiaryAccountIBAN(), ds.getBeneficiaryName(), ds.getPaymentAmount(),
-                    ds.getCurrencyCode(), ds.getPurposeCode(), ds.getPaymentDate().toString());
+                    ds.getCurrencyCode(), ds.getPurposeCode(),ds.getAmountInWords(), ds.getPaymentDate().toString());
         }
     }
 

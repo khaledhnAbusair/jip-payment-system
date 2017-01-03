@@ -13,6 +13,8 @@ import com.progressoft.jip.factory.AccountGatewayDBBehaviorsFactory;
 import com.progressoft.jip.factory.Behavior;
 import com.progressoft.jip.gateway.exception.AccountNotFoundException;
 import com.progressoft.jip.gateway.exception.InvalidBalanceException;
+import com.progressoft.jip.gateway.exception.NoAccountInsertedException;
+import com.progressoft.jip.gateway.exception.NoAccountUpdatedException;
 import com.progressoft.jip.gateway.exception.NullAccountIBANException;
 import com.progressoft.jip.utilities.Constants;
 
@@ -72,39 +74,52 @@ public class AccountGatewayDBBehaviorsFactoryImpl implements AccountGatewayDBBeh
 
 	};
 
-	public static final Behavior<Void> UPDATE_ACCOUNT = new AbstractBehavior<Void>() {
+	private static final Behavior<Void> UPDATE_ACCOUNT = new AbstractBehavior<Void>() {
+		int effectedRow = 0;
 
 		@Override
 		public Void operation() {
-			AccountDatastructure account = (AccountDatastructure) parameters[0];
-			if (account.getBalance() < 0)
+			AccountDatastructure dataStructure = (AccountDatastructure) parameters[0];
+			if (dataStructure.getBalance() < 0)
 				throw new InvalidBalanceException();
 			try {
-				runner.update("update ACCOUNT set TYPE = ?, BALANCE = ? , STATUS = ? where IBAN = ?",
-						account.getAccountType(), account.getBalance(), account.getStatus(), account.getIban());
-				return null;
+				effectedRow = runner.update(Constants.UPDATE_ACCOUNT, dataStructure.getAccountType(),
+						dataStructure.getBalance(), dataStructure.getStatus(), dataStructure.getCurrencyCode(),
+						dataStructure.getRule(), dataStructure.getIban());
+
 			} catch (SQLException e) {
-				throw new IllegalStateException(e);
+				throw new NoAccountUpdatedException(e);
 			}
+
+			if (effectedRow == 0) {
+				throw new NoAccountUpdatedException();
+			}
+			return null;
 		}
 
 	};
+	public static final Behavior<Void> CREATE_ACCOUNT= new AbstractBehavior<Void>() {
 
-	public static final Behavior<Void> CREATE_ACCOUNT = new AbstractBehavior<Void>() {
+		int effectedRow = 0;
 
 		@Override
 		public Void operation() {
-			AccountDatastructure newAccount = (AccountDatastructure) parameters[0];
+			AccountDatastructure dataStructure = (AccountDatastructure) parameters[0];
+			if (dataStructure.getBalance() < 0)
+				throw new InvalidBalanceException();
 			try {
-				runner.update("insert into ACCOUNT values (?,?,?,?,?)", newAccount.getIban(),
-						newAccount.getAccountType(), newAccount.getBalance(), newAccount.getStatus(),
-						newAccount.getCurrencyCode());
-				return null;
+				effectedRow = runner.update(Constants.INSERT_ACCOUNT, dataStructure.getIban(),
+						dataStructure.getAccountType(), dataStructure.getBalance(), dataStructure.getStatus(),
+						dataStructure.getCurrencyCode(), dataStructure.getRule());
 			} catch (SQLException e) {
-				throw new IllegalStateException(e);
+				throw new NoAccountInsertedException(e);
 			}
-		}
 
+			if (effectedRow == 0) {
+				throw new NoAccountInsertedException();
+			}
+			return null;
+		}
 	};
 
 }

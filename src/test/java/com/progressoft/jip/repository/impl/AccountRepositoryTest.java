@@ -3,10 +3,7 @@ package com.progressoft.jip.repository.impl;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.sql.SQLException;
-
 import org.apache.commons.dbcp2.BasicDataSource;
-import org.apache.commons.dbutils.QueryRunner;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -9,16 +9,16 @@ import com.progressoft.jip.view.CurrencyView;
 
 public class LoadCurrenciesUseCase {
 
-    private CurrencyRepository repository;
+    private CurrencyRepository currencyRepository;
 
     public LoadCurrenciesUseCase(CurrencyRepository repository) {
-        this.repository = repository;
+        this.currencyRepository = repository;
     }
 
     public Collection<CurrencyView> loadCurrencies() {
         List<CurrencyView> currencies = new ArrayList<>();
         CurrencyView currencyView = new CurrencyView();
-        repository.loadCurrencies().stream().forEach((currency) -> {
+        currencyRepository.loadCurrencies().stream().forEach((currency) -> {
             currency.buildCurrencyView(currencyView);
             currencies.add(currencyView.build());
         });

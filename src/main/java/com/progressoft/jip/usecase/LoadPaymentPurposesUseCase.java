@@ -1,11 +1,11 @@
 package com.progressoft.jip.usecase;
 
-import com.progressoft.jip.repository.PaymentPurposeRepository;
-import com.progressoft.jip.view.PaymentPurposeView;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import com.progressoft.jip.repository.PaymentPurposeRepository;
+import com.progressoft.jip.view.PaymentPurposeView;
 
 public class LoadPaymentPurposesUseCase {
 

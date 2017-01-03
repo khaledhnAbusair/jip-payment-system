@@ -15,17 +15,26 @@ import com.progressoft.jip.factory.impl.AccountGatewayDBBehaviorsFactoryImpl;
 import com.progressoft.jip.gateway.AccountGateway;
 import com.progressoft.jip.gateway.exception.AccountNotFoundException;
 import com.progressoft.jip.gateway.exception.InvalidBalanceException;
+import com.progressoft.jip.gateway.exception.NoAccountInsertedException;
 import com.progressoft.jip.gateway.exception.NullAccountIBANException;
 import com.progressoft.jip.utilities.DataBaseSettings;
 
 public class MySQLAccountGatewayTest {
 
 	private AccountGateway accountsGateway;
+	private AccountDatastructure accountDataStructure = new AccountDatastructure();
 
 	@Before
 	public void setUp() {
-		accountsGateway = new MySqlAccountGateway(connectionConfiguration(),
-				new AccountGatewayDBBehaviorsFactoryImpl());
+
+		BasicDataSource datasource = connectionConfiguration();
+		accountsGateway = new MySqlAccountGateway(datasource, new AccountGatewayDBBehaviorsFactoryImpl());
+		try {
+			new QueryRunner(datasource).update("delete from ACCOUNT where IBAN='JO94CBJO0010000000000131000399'");
+		} catch (SQLException e) {
+			throw new IllegalStateException("Couldn't prepare database");
+		}
+
 	}
 
 	private BasicDataSource connectionConfiguration() {
@@ -67,19 +76,46 @@ public class MySQLAccountGatewayTest {
 		double newBalance = Math.random() * 500;
 		originalAccount.setBalance(newBalance);
 		originalAccount.setStatus("ACTIVE");
+		originalAccount.setCurrencyCode("USD");
+		originalAccount.setRule("THIS_MONTH");
 		accountsGateway.updateAccount(originalAccount);
 		AccountDatastructure updatedAccount = accountsGateway.loadAccountByIBAN("JO94CBJO0010000000000131000302");
 		assertTrue(Math.abs(newBalance - updatedAccount.getBalance()) <= 1e-3);
 	}
 
 	@Test(expected = InvalidBalanceException.class)
-	public void givenMySQLAccountGateway_CallingUpdateAcount_PassingNigativeBalance_ShouldThrowInvalidBalance() {
+	public void givenMySQLAccountGateway_CallingUpdateAcount_PassingNegativeBalance_ShouldThrowInvalidBalance() {
 		AccountDatastructure originalAccount = new AccountDatastructure();
 		originalAccount.setIban("JO94CBJO0010000000000131000302");
 		originalAccount.setAccountType("TYPE");
 		originalAccount.setBalance(-200);
 		originalAccount.setStatus("ACTIVE");
 		accountsGateway.updateAccount(originalAccount);
+	}
+
+	@Test
+	public void givenMySQLAccountGateway_CallingInsertAccount_ShouldCreateAccount() {
+		accountDataStructure.setIban("JO94CBJO0010000000000131000399");
+		accountDataStructure.setBalance(500);
+		accountDataStructure.setCurrencyCode("JOD");
+		accountDataStructure.setAccountType("investment");
+		accountDataStructure.setStatus("ACTIVE");
+		accountDataStructure.setRule("THIS_MONTH");
+		accountsGateway.createAccount(accountDataStructure);
+		assertEquals(accountDataStructure.getIban(),
+				accountsGateway.loadAccountByIBAN("JO94CBJO0010000000000131000399").getIban());
+	}
+
+	@Test(expected = NoAccountInsertedException.class)
+	public void givenMySQLAccountGateway_CallingInsertAccount_PassingInvalidData_ShouldThrowNoAccountInsertedException() {
+		accountDataStructure.setIban(null);
+		accountDataStructure.setBalance(500);
+		accountDataStructure.setCurrencyCode("JOD");
+		accountDataStructure.setAccountType("investment");
+		accountDataStructure.setStatus("ACTIVE");
+		accountsGateway.createAccount(accountDataStructure);
+		assertEquals(accountDataStructure.getIban(),
+				accountsGateway.loadAccountByIBAN("JO94CBJO0010000000000131000321").getIban());
 	}
 
 	@Test

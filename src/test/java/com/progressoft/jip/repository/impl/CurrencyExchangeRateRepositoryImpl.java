@@ -1,6 +1,6 @@
 package com.progressoft.jip.repository.impl;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -8,13 +8,13 @@ import org.junit.Test;
 import com.progressoft.jip.gateway.exception.NullGatewayException;
 import com.progressoft.jip.gateway.impl.YahooCurrencyExchangeRateGateway;
 import com.progressoft.jip.model.CurrencyExchangeRate;
-import com.progressoft.jip.repository.CurrenctExchangeRateRepository;
+import com.progressoft.jip.repository.CurrencyExchangeRateRepository;
 import com.progressoft.jip.utilities.restful.RestfulResponseFormat;
 import com.progressoft.jip.utilities.restful.impl.YahooCurrenciesXmlResponseParser;
 
 public class CurrencyExchangeRateRepositoryImpl {
 
-	private CurrenctExchangeRateRepository repository;
+	private CurrencyExchangeRateRepository repository;
 
 	@Before
 	public void createCurrenctExchangeRateRepository() {

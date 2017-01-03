@@ -42,7 +42,7 @@ public class MySqlAccountGateway extends AbstractGateway implements AccountGatew
 
 	@Override
 	public void createAccount(AccountDatastructure newAccount) {
-//		createAccount.execute(dataSource, newAccount);
+		 createAccount.execute(dataSource, newAccount);
 	}
 
 }

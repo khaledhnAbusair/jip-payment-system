@@ -6,5 +6,9 @@ public interface CurrencyViewBuilder {
 
 	CurrencyViewBuilder setCode(String code);
 
+	CurrencyViewBuilder setName(String name);
+
+	CurrencyViewBuilder setCoinsName(String coinsName);
+
 	CurrencyView build();
 }

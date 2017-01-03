@@ -7,6 +7,7 @@ public class AccountDatastructure {
 	private double balance;
 	private String status;
 	private String currencyCode;
+	private String rule;
 
 	public String getAccountType() {
 		return accountType;
@@ -47,5 +48,21 @@ public class AccountDatastructure {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
+	public String getRule() {
+		return rule;
+	}
+
+	public void setRule(String rule) {
+		this.rule = rule;
+	}
+
+	@Override
+	public String toString() {
+		return "AccountDatastructure [iban=" + iban + ", accountType=" + accountType + ", balance=" + balance
+				+ ", status=" + status + ", currencyCode=" + currencyCode + ", rule=" + rule + "]";
+	}
+	
+	
 
 }

@@ -5,15 +5,14 @@ import com.progressoft.jip.datastructures.builder.PaymentPurposeBuilder;
 
 public class PaymentPurpose {
 
-    protected PaymentPurposeDataStructure dataStructure;
+	protected PaymentPurposeDataStructure dataStructure;
 
-    public PaymentPurpose(PaymentPurposeDataStructure dataStructure) {
-        this.dataStructure = dataStructure;
-    }
+	public PaymentPurpose(PaymentPurposeDataStructure dataStructure) {
+		this.dataStructure = dataStructure;
+	}
 
-    public PaymentPurposeBuilder buildPaymentPurposeView(PaymentPurposeBuilder builder) {
-        return builder.setCode(dataStructure.getCode())
-                .setName(dataStructure.getName());
-    }
+	public PaymentPurposeBuilder buildPaymentPurposeView(PaymentPurposeBuilder builder) {
+		return builder.setCode(dataStructure.getCode()).setName(dataStructure.getName());
+	}
 
 }

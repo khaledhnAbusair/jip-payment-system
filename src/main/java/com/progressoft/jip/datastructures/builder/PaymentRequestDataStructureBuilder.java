@@ -1,26 +1,29 @@
 package com.progressoft.jip.datastructures.builder;
 
-import java.sql.Date;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
 import com.progressoft.jip.datastructures.PaymentRequestDataStructure;
 
 public interface PaymentRequestDataStructureBuilder {
 
-    public PaymentRequestDataStructureBuilder setId(int id);
+	public PaymentRequestDataStructureBuilder setId(int id);
 
-    public PaymentRequestDataStructureBuilder setOrderingAccountIBAN(String orderingAccountIBAN);
+	public PaymentRequestDataStructureBuilder setOrderingAccountIBAN(String orderingAccountIBAN);
 
-    public PaymentRequestDataStructureBuilder setBeneficiaryAccountIBAN(String beneficiaryAccountIBAN);
+	public PaymentRequestDataStructureBuilder setBeneficiaryAccountIBAN(String beneficiaryAccountIBAN);
 
-    public PaymentRequestDataStructureBuilder setBeneficiaryName(String beneficiaryName);
+	public PaymentRequestDataStructureBuilder setBeneficiaryName(String beneficiaryName);
 
-    public PaymentRequestDataStructureBuilder setPaymentAmount(double paymentAmount);
+	public PaymentRequestDataStructureBuilder setPaymentAmount(BigDecimal paymentAmount);
 
-    public PaymentRequestDataStructureBuilder setCurrencyCode(String currencyCode);
+	public PaymentRequestDataStructureBuilder setCurrencyCode(String currencyCode);
 
-    public PaymentRequestDataStructureBuilder setPurposeCdoe(String purposeCdoe);
+	public PaymentRequestDataStructureBuilder setPurposeCdoe(String purposeCdoe);
 
-    public PaymentRequestDataStructureBuilder setPaymentDate(Date paymentDate);
+	public PaymentRequestDataStructureBuilder setPaymentDate(LocalDate paymentDate);
 
-    public PaymentRequestDataStructure build();
+	public PaymentRequestDataStructureBuilder setPaymentAmountInWords(String paymentAmountInWords);
+
+	public PaymentRequestDataStructure build();
 }

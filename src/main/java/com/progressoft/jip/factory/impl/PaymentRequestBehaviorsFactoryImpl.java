@@ -94,7 +94,8 @@ public class PaymentRequestBehaviorsFactoryImpl implements PaymentRequestBehavio
 			.update(Constants.INSERT_PAYMENT_REQUEST_SQL, dataStructure.getOrderingAccountIBAN(),
 				dataStructure.getBeneficiaryAccountIBAN(), dataStructure.getBeneficiaryName(),
 				dataStructure.getPaymentAmount(), dataStructure.getCurrencyCode(),
-				dataStructure.getPurposeCode(), dataStructure.getPaymentDate());
+				dataStructure.getPurposeCode(), dataStructure.getPaymentDate(),dataStructure.getAmountInWords());
+				
 		if (effectedRow == 0)
 		    throw new NoneExistingPaymentRequestException();
 		return null;
